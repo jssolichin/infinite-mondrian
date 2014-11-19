@@ -20,7 +20,7 @@ Box.prototype.generatePosition = function (cameraPos) {
     var that = this;
 
     var components = ['x', 'y', 'z'];
-    var bounds  = 1500;
+    var bounds  = 1000;
 
     components.forEach(function(component){
         var min = cameraPos[component] - bounds;
