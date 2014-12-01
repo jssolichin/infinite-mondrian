@@ -45,10 +45,12 @@ var init = function () {
 
     //create subtle ambient light
     var ambientLight = new THREE.AmbientLight(0x333355);
+     ambientLight = new THREE.AmbientLight(0x111111);
 
     //create a scene
     shared.scene = new THREE.Scene();
-    
+    shared.scene.fog = new THREE.Fog(0xffffff, 0, WIDTH*5);
+
     // add the camera to the scene
 
     shared.scene.add(control.getObject());
@@ -56,21 +58,44 @@ var init = function () {
     shared.scene.add(ambientLight);
 
 
-    //add boxes
+    //param for boxes
     boxOption = {
-        width: WIDTH/5, height: HEIGHT/5, depth: WIDTH/5
+        width: WIDTH/2, height: HEIGHT/2, depth: WIDTH/2, multicolor: true
+    };
+
+    //param for bar--function generates which dimension to make really short and long
+    barOptionGenerator = function(){
+        //make all dimension short. no multicolor since only black
+        var barOption = {
+            width: WIDTH/15, height: HEIGHT/15, depth: WIDTH/15, multicolor: false
+        };
+
+        //choose which dimension to make really long
+        var dimensions = ['width', 'height', 'depth'];
+        barOption[dimensions[helpers.generateRandom(0,2)]] = 99999;
+
+        return barOption;
     }
 
+    //list of objects in world
     var boxes = [];
-    for (var i = 0; i< 100; i++){
-        boxes[i] =  new Box(boxOption);
+    for (var i = 0; i< 400; i++){
+        var type; //bar or box
+
+        //create a bar some percent of the time, else boxes
+        if(Math.random() > .8)
+            type = barOptionGenerator();
+        else
+            type = boxOption;
+
+        //add object to scene
+        boxes[i] =  new Box(type);
         shared.scene.add(boxes[i].mesh);
 
+        //move to a position in world
         boxes[i].generatePosition(shared.camera.position);
         boxes[i].move();
     }
-    //box.generatePosition(shared.camera.position);
-    //box.move();
 
     // attach the render-supplied DOM element
     $container.appendChild(shared.renderer.domElement);
@@ -79,10 +104,12 @@ var init = function () {
 var anim = function () {
 
     stats.begin();
+
     requestAnimationFrame(anim);
 
+    //move camera overtime slowly
     shared.camera.position.z--;
-    shared.renderer.render(shared.scene, shared.camera)
+    shared.renderer.render(shared.scene, shared.camera);
 
     stats.end();
 }
