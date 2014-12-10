@@ -1,0 +1,30 @@
+{
+  "name": "infinite-mondrian",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jssolichin/infinite-mondrian",
+  "authors": [
+    "Jonathan <jssolichin@gmail.com>"
+  ],
+  "description": "Auto generating 3D Mondrian esque world, exploreable with phone gyroscope",
+  "main": "app.js",
+  "keywords": [
+    "ThreeJS",
+    "WebRTC",
+    "Mondrian",
+    "UCLA",
+    "DMA"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "threejs": "*",
+    "stats.js": "*"
+  }
+}

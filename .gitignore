@@ -1,2 +1,4 @@
 .idea/*
-projectFilesBackup/
+projectFilesBackup/*
+node_modules/*
+bower_components/*
