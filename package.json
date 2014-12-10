@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Auto generating 3D Mondrian esque world, exploreable with phone gyroscope",
   "dependencies": {
-    "express": "~4.10.4"
+    "express": "~4.10.4",
+    "peer": "~0.2.8"
   },
   "main": "app.js",
   "devDependencies": {},

@@ -5,16 +5,23 @@ process.env.PWD = process.cwd();
 
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
+var ExpressPeerServer = require('peer').ExpressPeerServer;
+
+var server = app.listen(3000, function () {
+    console.log(':3000');
+});
+var options = {
+    debug: true
+};
 
 app.use("/public", express.static(process.env.PWD + '/public'));
 app.use("/bower_components", express.static(process.env.PWD + '/bower_components'));
 app.use("/node_modules", express.static(process.env.PWD + '/node_modules'));
+app.use('/peerjs', ExpressPeerServer(server, options));
+app.use('/api', ExpressPeerServer(server, options));
 
 app.get('/', function(req, res){
     res.sendFile(process.env.PWD + '\\views\\index.html');
 });
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
-});
+server.on('connection', function(id) { console.log(id) });
