@@ -1,6 +1,7 @@
 /**
  * Created by Jonathan on 11/17/2014.
  */
+    /*
 
 var peer = new Peer('receiver', {host: 'localhost', port: 3000, path: '/peerjs'});
 peer.on('connection', function(conn) {
@@ -8,6 +9,7 @@ peer.on('connection', function(conn) {
         console.log('Received', data);
     });
 });
+*/
 
 // set the scene size
 var WIDTH = window.innerWidth;
@@ -56,6 +58,11 @@ var init = function () {
 
     control = new cameraControl(shared.camera);
 
+    var quaternion = new THREE.Object3D();
+    quaternion.add(control.getObject());
+    shared.gyro = new THREE.DeviceOrientationControls(quaternion);
+    shared.gyro.connect();
+
     //create a light
     var light = new THREE.PointLight(0xFFFFFF);
     light.position.x = 15;
@@ -72,7 +79,7 @@ var init = function () {
 
     // add the camera to the scene
 
-    shared.scene.add(control.getObject());
+    shared.scene.add(quaternion);
     shared.scene.add(light);
     shared.scene.add(ambientLight);
 
@@ -126,8 +133,9 @@ var anim = function () {
 
     requestAnimationFrame(anim);
 
+    shared.gyro.update();
     //move camera overtime slowly
-    shared.camera.position.z--;
+    shared.camera.position.z -= 1;
     shared.renderer.render(shared.scene, shared.camera);
 
     stats.end();

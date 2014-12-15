@@ -25,6 +25,7 @@
   ],
   "dependencies": {
     "threejs": "*",
-    "stats.js": "*"
+    "stats.js": "*",
+    "pleasejs": "~0.4.2"
   }
 }
