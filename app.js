@@ -23,5 +23,8 @@ app.use('/api', ExpressPeerServer(server, options));
 app.get('/', function(req, res){
     res.sendFile(process.env.PWD + '\\views\\index.html');
 });
+app.get('/controller', function(req, res){
+    res.sendFile(process.env.PWD + '\\views\\controller.html');
+});
 
 server.on('connection', function(id) { console.log(id) });

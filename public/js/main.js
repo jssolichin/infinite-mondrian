@@ -2,6 +2,13 @@
  * Created by Jonathan on 11/17/2014.
  */
 
+var peer = new Peer('receiver', {host: 'localhost', port: 3000, path: '/peerjs'});
+peer.on('connection', function(conn) {
+    conn.on('data', function(data) {
+        console.log('Received', data);
+    });
+});
+
 // set the scene size
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
