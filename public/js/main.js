@@ -1,15 +1,8 @@
 /**
  * Created by Jonathan on 11/17/2014.
  */
-    /*
 
-var peer = new Peer('receiver', {host: 'localhost', port: 3000, path: '/peerjs'});
-peer.on('connection', function(conn) {
-    conn.on('data', function(data) {
-        console.log('Received', data);
-    });
-});
-*/
+
 
 // set the scene size
 var WIDTH = window.innerWidth;
@@ -38,6 +31,34 @@ var backgroundColor = 0xffffff;
 
 var shared = {};
 var init = function () {
+    var peer = new Peer('receiver', {host: 'localhost', port: 3000, path: '/peerjs'});
+    peer.on('connection', function(conn) {
+        conn.on('open', function () {
+            shared.gyro.disconnect();
+            shared.gyro.toggleFreeze();
+
+            quaternion.rotation.set(0,0,0);
+            quaternion.updateMatrix();
+        });
+        conn.on('close', function () {
+            shared.gyro.connect();
+            shared.gyro.toggleFreeze();
+
+            quaternion.rotation.set(0,0,0);
+            quaternion.updateMatrix();
+        });
+        conn.on('data', function(data) {
+
+            if(shared && shared.gyro){
+                if(data.gamma)
+                    shared.gyro.changeDeviceOrientation(data);
+                else if (data.orientationChange !== undefined)
+                    shared.gyro.changeOrientation( data.orientationChange );
+            };
+
+        });
+    });
+
     // get the DOM element to attach to
     // - assume we've got jQuery to hand
     var $container = document.getElementById('container');

@@ -78,6 +78,18 @@ THREE.DeviceOrientationControls = function ( object ) {
 
     };
 
+    this.changeOrientation = function (source){
+        this.screenOrientation = source;
+    };
+
+    this.changeDeviceOrientation = function (source){
+        this.deviceOrientation = source;
+    };
+
+    this.toggleFreeze = function (){
+        this.freeze = !this.freeze;
+    }
+
     this.connect = function() {
 
         this.onScreenOrientationChangeEvent(); // run once on load
