@@ -3,8 +3,20 @@
  */
 
 // set the scene size
-var WIDTH = window.innerWidth - 5;
-var HEIGHT = window.innerHeight - 5;
+var WIDTH = window.innerWidth;
+var HEIGHT = window.innerHeight;
+
+// re-set scene size when window resized
+window.addEventListener('resize', function() {
+
+    WIDTH = window.innerWidth;
+    HEIGHT = window.innerHeight;
+
+    shared.camera.aspect = WIDTH / HEIGHT;
+    shared.camera.updateProjectionMatrix();
+    shared.renderer.setSize(WIDTH, HEIGHT);
+
+}, false);
 
 // set some camera attributes
 var VIEW_ANGLE = 45,
