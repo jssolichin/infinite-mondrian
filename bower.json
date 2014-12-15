@@ -26,6 +26,7 @@
   "dependencies": {
     "threejs": "*",
     "stats.js": "*",
-    "pleasejs": "~0.4.2"
+    "pleasejs": "~0.4.2",
+    "CombinedCamera": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/cameras/CombinedCamera.js"
   }
 }

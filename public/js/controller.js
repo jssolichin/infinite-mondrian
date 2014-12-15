@@ -14,6 +14,7 @@ var conn = peer.connect('receiver');
 //
 
 var button = document.getElementById('send');
+var button2 = document.getElementById('change-camera');
 
 function bind( scope, fn ) {
     return function () {
@@ -58,7 +59,13 @@ conn.on('open', function() {
     });
 
     button.addEventListener('click', function () {
-        conn.send('Hello!');
+        var option = {change:'fov', increment: 10};
+        console.log(option);
+        conn.send(option);
+    })
+    button2.addEventListener('click', function () {
+        conn.send({changeCamera: true});
+        //conn.send({toggleFog: true})
     })
 
 });

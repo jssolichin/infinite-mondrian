@@ -24,7 +24,9 @@ window.addEventListener('resize', function() {
 var VIEW_ANGLE = 45,
     ASPECT = WIDTH / HEIGHT,
     NEAR = 0.1,
-    FAR = 10000;
+    FAR = 10000,
+    ORTHONEAR = .001
+    ORTHOFAR = 9000;
 
 // scene properties
 var backgroundColor = 0xffffff;
@@ -34,15 +36,23 @@ var init = function () {
     var peer = new Peer('receiver', {host: 'localhost', port: 3000, path: '/peerjs'});
     peer.on('connection', function(conn) {
         conn.on('open', function () {
-            shared.gyro.disconnect();
-            shared.gyro.toggleFreeze();
+            console.log('open');
+
+            if(shared.gyro !== undefined) {
+                shared.gyro.disconnect();
+                shared.gyro.toggleFreeze();
+            }
 
             quaternion.rotation.set(0,0,0);
             quaternion.updateMatrix();
         });
         conn.on('close', function () {
-            shared.gyro.connect();
-            shared.gyro.toggleFreeze();
+            console.log('closed');
+
+            if(shared.gyro !== undefined){
+                shared.gyro.connect();
+                shared.gyro.toggleFreeze();
+            }
 
             quaternion.rotation.set(0,0,0);
             quaternion.updateMatrix();
@@ -54,8 +64,24 @@ var init = function () {
                     shared.gyro.changeDeviceOrientation(data);
                 else if (data.orientationChange !== undefined)
                     shared.gyro.changeOrientation( data.orientationChange );
-            };
+            }
 
+            if (data.change){
+                console.log(data.increment)
+
+                shared.camera[data.change] += data.increment;
+                shared.camera.updateProjectionMatrix();
+
+            } else if (data.changeCamera){
+                if(shared.camera.inOrthographicMode)
+                    shared.camera.toPerspective();
+                else
+                    shared.camera.toOrthographic();
+            } else if (data.toggleFog){
+                console.log('fog')
+                shared.scene.fog.far = shared.scene.fog.far == WIDTH * 5 ? 9999999 : WIDTH * 5;
+            }
+            ;
         });
     });
 
@@ -70,12 +96,10 @@ var init = function () {
 
     //create a camera
     shared.camera =
-        new THREE.PerspectiveCamera(
-            VIEW_ANGLE,
-            ASPECT,
-            NEAR,
-            FAR);
+        new THREE.CombinedCamera(
+            WIDTH, HEIGHT, VIEW_ANGLE, NEAR, FAR, ORTHONEAR, ORTHOFAR);
     shared.camera.position.z = 300;
+
 
     control = new cameraControl(shared.camera);
 
@@ -155,6 +179,7 @@ var anim = function () {
     requestAnimationFrame(anim);
 
     shared.gyro.update();
+
     //move camera overtime slowly
     shared.camera.position.z -= 1;
     shared.renderer.render(shared.scene, shared.camera);
