@@ -2,8 +2,6 @@
  * Created by Jonathan on 11/17/2014.
  */
 
-
-
 // set the scene size
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;

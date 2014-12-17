@@ -1,0 +1,15 @@
+diff a/public/js/controller.js b/public/js/controller.js	(rejected hunks)
+@@ -2,6 +2,13 @@
+  * Created by Jonathan on 12/14/2014.
+  */
+ 
++    var name = Please.make_color();
++    name = 'controller-' + name.substring(1);
++
++    var peer = new Peer(name, {host: '149.142.228.107', port: 3000, path: '/peerjs',
++    debug: 3, config: {'iceServers': [
++        ]}
++});
+ var conn = peer.connect('receiver');
+ 
+ //

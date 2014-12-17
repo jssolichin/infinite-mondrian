@@ -2,7 +2,7 @@ body {background: #263238; margin: 0px; padding: 0px;}
 .clearfix:after { content:""; display:table; clear:both; }
 .left {float: left;}
 
-#controls {background: #fff; box-shadow: 0px 50px 60px rgba(0,0,0,.3); padding: 20px;  text-align: center; }
+#controls {background: #fff; box-shadow: 0px 30px 40px rgba(0,0,0,.4); padding: 20px;  text-align: center; position: fixed; top: 0px; left: 0px; right: 0px; z-index: 99}
 #controls ul {list-style: none; margin: 0px; padding: 0px; }
 #controls ul li {background: #FFEB3B; border-radius: 30px; padding: 10px; display: inline-block; margin-right: 10px;}
 #controls ul li:last-child {margin-right: 0px;}
@@ -16,3 +16,8 @@ body {background: #263238; margin: 0px; padding: 0px;}
 
 .icon { width: 24px; height: 24px; }
 .off {opacity: .5;}
+
+#photo-roll {margin: 130px 0 0 0; }
+#photo-roll ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
+#photo-roll ul li {margin-bottom: 30px;}
+#photo-roll img {border: 20px solid #fff; width: 80%;}
