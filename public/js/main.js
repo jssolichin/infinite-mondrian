@@ -72,7 +72,7 @@ var init = function () {
                 shared.camera[data.change] += data.increment;
                 shared.camera.updateProjectionMatrix();
 
-            } else if (data.changeCamera){
+            } else if (data.toggleCamera){
                 if(shared.camera.inOrthographicMode)
                     shared.camera.toPerspective();
                 else

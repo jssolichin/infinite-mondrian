@@ -1,4 +1,3 @@
-/**
 /*
  * Created by Jonathan on 12/14/2014.
  */
@@ -19,9 +18,14 @@ conn.on('data', function(data) {
 });
 //
 
-var button = document.getElementById('send');
-var button2 = document.getElementById('change-camera');
-var button3 = document.getElementById('take-picture');
+var difference = 30;
+
+var $decrementFov = document.getElementById('decrement-fov');
+var $incrementFov = document.getElementById('increment-fov');
+
+var $toggleFog = document.getElementById('toggle-fog');
+var $toggleCamera = document.getElementById('toggle-camera');
+var $takePicture = document.getElementById('take-picture');
 
 function bind( scope, fn ) {
     return function () {
@@ -65,16 +69,22 @@ conn.on('open', function() {
         conn.send(orientation);
     });
 
-    button.addEventListener('click', function () {
-        var option = {change:'fov', increment: 10};
-        console.log(option);
+    $decrementFov.addEventListener('click', function () {
+        var option = {change: 'fov', increment: -difference};
         conn.send(option);
     });
-    button2.addEventListener('click', function () {
-        conn.send({changeCamera: true});
-        //conn.send({toggleFog: true})
+    $incrementFov.addEventListener('click', function () {
+        var option = {change:'fov', increment: difference};
+        conn.send(option);
     });
-    button3.addEventListener('click', function () {
+
+    $toggleCamera.addEventListener('click', function () {
+        conn.send({toggleCamera: true});
+    });
+    $toggleFog.addEventListener('click', function () {
+            conn.send({toggleFog: true})
+    });
+    $takePicture.addEventListener('click', function () {
         conn.send({takePicture: true});
     });
 });

@@ -3,11 +3,28 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <link href="../bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-image.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/controller-style.css">
 </head>
 <body>
 
-    <button id="send">increment</button>
-    <button id="change-camera">change camera</button>
+    <div id="controls" >
+        <ul class="clearfix">
+            <li>
+                <ul>
+                    <li id="decrement-fov" class="button"><div class="left icon svg-ic_navigate_before_24px"></div></li>
+                    <li><div class="left icon svg-ic_panorama_horizontal_24px"></div></li>
+                    <li id="increment-fov"  class="button"><div class="left icon svg-ic_navigate_next_24px"></div></li>
+                </ul>
+            </li>
+            <li id="toggle-fog" class="button"><div class="icon svg-ic_wb_cloudy_24px"></div></li>
+            <li id="toggle-camera" class="button"><div class="icon svg-ic_switch_camera_24px"></div></li>
+            <li id="take-picture" class="button"><div class="icon svg-ic_camera_alt_24px"></div></li>
+        </ul>
+        <div id="trigger"></div>
+    </div>
 
     <script src="../bower_components/peerjs/peer.js"></script>
     <script src="../bower_components/pleasejs/dist/Please.js"></script>

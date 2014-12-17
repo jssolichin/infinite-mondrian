@@ -1,0 +1,18 @@
+body {background: #263238; margin: 0px; padding: 0px;}
+.clearfix:after { content:""; display:table; clear:both; }
+.left {float: left;}
+
+#controls {background: #fff; box-shadow: 0px 50px 60px rgba(0,0,0,.3); padding: 20px;  text-align: center; }
+#controls ul {list-style: none; margin: 0px; padding: 0px; }
+#controls ul li {background: #FFEB3B; border-radius: 30px; padding: 10px; display: inline-block; margin-right: 10px;}
+#controls ul li:last-child {margin-right: 0px;}
+#controls ul li.button:hover {background: #F44336;}
+#controls ul li.button:active {background: #B71C1C;}
+#controls ul li ul {margin: -10px 0 -15px 0; padding: 0px;}
+/*#controls ul li ul li:hover { margin-left: -3px;border: 0px; border-radius: 0px; border-right: 1px solid #ccc;}*/
+#controls ul li ul li:nth-child(2) {border: 0px; margin-right: 0px;}
+#controls ul li ul li:first-child {margin: 0 0 0-10px;}
+#controls ul li ul li:last-child {border-right: 0px; margin-right: -10px;}
+
+.icon { width: 24px; height: 24px; }
+.off {opacity: .5;}
