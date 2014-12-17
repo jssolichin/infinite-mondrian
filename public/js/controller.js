@@ -1,20 +1,27 @@
 /**
+/*
  * Created by Jonathan on 12/14/2014.
  */
 
     var name = Please.make_color();
     name = 'controller-' + name.substring(1);
 
-    var peer = new Peer(name, {host: '149.142.228.107', port: 3000, path: '/peerjs',
+    var peer = new Peer(name, {host: 'localhost', port: 3000, path: '/peerjs',
     debug: 3, config: {'iceServers': [
         ]}
 });
 var conn = peer.connect('receiver');
 
+conn.on('data', function(data) {
+    if(data.img){
+        document.write('<img src="'+data.img+'"/>');
+    }
+});
 //
 
 var button = document.getElementById('send');
 var button2 = document.getElementById('change-camera');
+var button3 = document.getElementById('take-picture');
 
 function bind( scope, fn ) {
     return function () {
@@ -62,10 +69,12 @@ conn.on('open', function() {
         var option = {change:'fov', increment: 10};
         console.log(option);
         conn.send(option);
-    })
+    });
     button2.addEventListener('click', function () {
         conn.send({changeCamera: true});
         //conn.send({toggleFog: true})
-    })
-
+    });
+    button3.addEventListener('click', function () {
+        conn.send({takePicture: true});
+    });
 });

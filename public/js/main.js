@@ -80,6 +80,10 @@ var init = function () {
             } else if (data.toggleFog){
                 console.log('fog')
                 shared.scene.fog.far = shared.scene.fog.far == WIDTH * 5 ? 9999999 : WIDTH * 5;
+            } else if(data.takePicture){
+                var img    = shared.renderer.domElement.toDataURL("image/png");
+                helpers.uploadDataUrl(img);
+                conn.send({img: img});
             }
             ;
         });
@@ -90,7 +94,7 @@ var init = function () {
     var $container = document.getElementById('container');
 
     // create a WebGL renderer
-    shared.renderer = new THREE.WebGLRenderer();
+    shared.renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true}); // required to support .toDataURL()
     shared.renderer.setClearColor(backgroundColor, 1);
     shared.renderer.setSize(WIDTH, HEIGHT);
 
@@ -169,7 +173,7 @@ var init = function () {
     }
 
     // attach the render-supplied DOM element
-    $container.appendChild(shared.renderer.domElement);
+    canvas = $container.appendChild(shared.renderer.domElement);
 }
 
 var anim = function () {
