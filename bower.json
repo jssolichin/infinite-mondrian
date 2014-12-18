@@ -27,6 +27,9 @@
     "threejs": "*",
     "stats.js": "*",
     "pleasejs": "~0.4.2",
-    "CombinedCamera": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/cameras/CombinedCamera.js"
+    "CombinedCamera": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/cameras/CombinedCamera.js",
+    "animate.css": "~3.2.0",
+    "peerjs": "~0.3.14",
+    "material-design-icons": "~1.0.1"
   }
 }
