@@ -20,28 +20,39 @@ Box.prototype.generateColor = function (multicolor){
 
     return colors[Math.floor(Math.random() * colors.length)];
 }
-Box.prototype.generatePosition = function (cameraPos) {
+Box.prototype.generatePosition = function (cameraPos, move) {
+    //move means we only want it to be in front of the camera and not all around
+
     var that = this;
 
     var components = ['x', 'y', 'z'];
-    var bounds  = WIDTH*3.5;
+    var bounds  = shared.option.distanceFog;
 
     components.forEach(function(component){
-        var min = cameraPos[component] - bounds;
-        var max = cameraPos[component] + bounds;
+        var min,max;
+        if(move != true){
+            min = cameraPos[component] - bounds;
+            max = cameraPos[component] + bounds;
+        }
+        else {
+            min = cameraPos[component] - bounds ;
+            max = cameraPos[component] ;
+        }
         that.position[component] = helpers.generateRandom(min, max);
     })
 
 };
+Box.prototype.setPosition = function (x,y,z) {
+    this.position.x = x;
+    this.position.y = y;
+    this.position.z = z;
+}
 Box.prototype.move = function () {
-    this.mesh.position.x = this.position.x;
-    this.mesh.position.y = this.position.y;
-    this.mesh.position.z = this.position.z;
+    this.mesh.position.set(this.position.x, this.position.y, this.position.z);
 };
 Box.prototype.generateSize = function (width, height, depth) {
     this.width = helpers.generateRandom(width/4, width);
     this.height = helpers.generateRandom(height/4, height);
     this.depth = helpers.generateRandom(depth/4, depth);
 };
-
 

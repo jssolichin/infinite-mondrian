@@ -3,3 +3,4 @@ projectFilesBackup/*
 node_modules/*
 bower_components/*
 public/img/*
+unused.js

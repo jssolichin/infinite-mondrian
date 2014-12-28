@@ -3,8 +3,8 @@
  */
 
 //editable variable
-var host= 'localhost';
-//var host= '169.232.245.79';
+//var host= 'localhost';
+var host= '192.168.1.6';
 var receiver = 'receiver';
 var difference = 30;
 
@@ -37,23 +37,6 @@ conn.on('data', function(data) {
         });
     }
 });
-//
-
-
-
-function bind( scope, fn ) {
-    return function () {
-        fn.apply( scope, arguments );
-    };
-};
-var orientationControl = {
-    onDeviceOrientationChangeEvent : function( rawEvtData ) {
-        this.deviceOrientation = rawEvtData;
-    },
-    onScreenOrientationChangeEvent : function() {
-        this.screenOrientation = window.orientation || 0;
-    }
-};
 
 conn.on('open', function() {
     // Send messages
