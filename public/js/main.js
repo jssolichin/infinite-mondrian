@@ -45,10 +45,10 @@ var shared = {
 
         //then randomly rotate that point within 0 to 180 deg both horizontally and vertically
         var axis = new THREE.Vector3( 0, 1, 0 );
-        var angle = helpers.generateRandomFloat(0, Math.PI);
+        var angle = helpers.generateRandomFloat(-Math.PI/2, Math.PI/2);
         cameraDir.applyAxisAngle( axis, angle );
         axis = {x: 1, y: 0, z: 0};
-        angle = helpers.generateRandomFloat(0, Math.PI);
+        angle = helpers.generateRandomFloat(-Math.PI/2, Math.PI/2);
         cameraDir.applyAxisAngle( axis, angle );
 
         //move the box to a new place that is within bounds
