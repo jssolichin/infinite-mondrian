@@ -9,7 +9,9 @@ canvas {cursor: pointer;}
 #instructions h1 {text-align: center; width: 300px; text-transform: uppercase; margin: 0px auto; padding: 0px;}
 
 #methods {width: 300px;list-style-type: none; margin: 0px; padding: 10px;}
-#methods li {border-top: 1px solid #333; padding: 10px;}
+#methods li:first-child {border-top: 1px solid #333; padding: 10px;}
+#methods li fieldset {border: 0px; border-top: 1px solid #333; margin: 0px;}
+#methods li fieldset legend {margin: 0 auto; padding: 0 10px; font-style: italic; font-variant: small-caps}
 #methods li canvas {margin: 10px; cursor: auto}
 
 #controls {bottom: 0px; top: auto; background: none; font-variant: small-caps;}
