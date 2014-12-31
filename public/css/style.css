@@ -1,2 +1,11 @@
-body {margin: 0px; padding: 0px; overflow: hidden;}
-canvas {background: blue;}
+body {margin: 0px; padding: 0px; overflow: hidden; font-family: "Sans Serif";}
+canvas {background: blue; cursor: pointer;}
+
+#container {display: none; position: relative; z-index: 0;}
+#hud {display: none; }
+
+#instructions-wrapper {position: absolute; top: 50%; left: 50%; z-index: 999}
+#instructions {position: relative; left: -50%; text-align: center;}
+#instructions h1 {text-transform: uppercase; font-family: 'Impact'; margin: 0px; padding: 0px;}
+
+#controls {bottom: 0px; top: auto; background: none;}

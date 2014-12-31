@@ -51,15 +51,24 @@ var helpers = {
     },
     onPointerLockChange: function ( event, element ) {
 
+        var $instructionsWrapper = document.getElementById('instructions-wrapper');
+        var $controls = document.getElementById('controls');
+
         if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ){
             shared.controls.mouse = true;
 
             shared.composer = helpers.createComposer(false);
+
+            $instructionsWrapper.className = 'animated fadeOut';
+            $controls.className = 'animated fadeOut';
         }
         else{
             shared.controls.mouse = false;
 
             shared.composer = helpers.createComposer(true);
+
+            $instructionsWrapper.className = 'animated fadeIn';
+            $controls.className = 'animated fadeIn';
         }
 
     },

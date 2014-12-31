@@ -72,6 +72,7 @@ var init = function () {
 
     // get the DOM element to attach to
     var $container = document.getElementById('container');
+    var $hud = document.getElementById('hud');
 
     // create a WebGL renderer
     shared.renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true}); // required to support .toDataURL()
@@ -152,7 +153,7 @@ var init = function () {
     var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
     if(havePointerLock){
-        var element = document.body;
+        var element = canvas;
 
         element.addEventListener('click', function (event){
             helpers.pointerLockHandler(event, element);
@@ -175,6 +176,9 @@ var init = function () {
 
     //create the composer
     shared.composer = helpers.createComposer(true);
+
+    $container.style.display ="block";
+    $hud.style.display ="block";
 }
 
 var anim = function () {
