@@ -53,6 +53,7 @@ var helpers = {
 
         var $instructionsWrapper = document.getElementById('instructions-wrapper');
         var $controls = document.getElementById('controls');
+        var $hint = document.getElementById('hint');
 
         if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ){
             shared.controls.mouse = true;
@@ -61,6 +62,7 @@ var helpers = {
 
             $instructionsWrapper.className = 'animated fadeOut';
             $controls.className = 'animated fadeOut';
+            $hint.className = 'animated fadeIn';
         }
         else{
             shared.controls.mouse = false;
@@ -69,6 +71,7 @@ var helpers = {
 
             $instructionsWrapper.className = 'animated fadeIn';
             $controls.className = 'animated fadeIn';
+            $hint.className = 'animated fadeOut';
         }
 
     },

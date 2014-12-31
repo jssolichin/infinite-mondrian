@@ -37,6 +37,7 @@
     "ShaderPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/ShaderPass.js",
     "animate.css": "~3.2.0",
     "peerjs": "~0.3.14",
-    "material-design-icons": "~1.0.1"
+    "material-design-icons": "~1.0.1",
+    "qr-js": "~1.1.3"
   }
 }

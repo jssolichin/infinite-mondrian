@@ -17,12 +17,22 @@
         <div id="instructions-wrapper" class="animated fadeIn">
             <div id ="instructions">
                 <h1 >Infinite Mondrian</h1>
-                <br />
-                <p>Click Anywhere to Begin</p>
+                <ul id="methods">
+                    <li>
+                        Click anywhere to use your mouse
+                    </li>
+                    <li>
+                        Go to: http://fdsa.com on your Android phone to use it a gyroscope remote controller
+                    </li>
+                    <li>
+                        Scan the qr code below: <br />
+                        <canvas id="qr-code"></canvas>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div id="controls"class="animated fadeIn ">
+        <div id="controls" class="animated fadeIn ">
             <ul class="clearfix">
                 <li>
                     <ul>
@@ -39,12 +49,17 @@
         </div>
     </div>
 
+    <div id="hint">
+        Press esc to enable mouse
+    </div>
+
     <div id="container" class="animated fadeIn">
     </div>
 
     <script src="../bower_components/peerjs/peer.js"></script>
     <script src="../bower_components/stats.js/build/stats.min.js"></script>
     <script src="../bower_components/threejs/build/three.js"></script>
+    <script src="../bower_components/qr-js/qr.min.js"></script>
     <script src="../bower_components/CombinedCamera/index.js"></script>
 
     <script src="../bower_components/CopyShader/index.js"></script>

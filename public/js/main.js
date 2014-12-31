@@ -177,6 +177,12 @@ var init = function () {
     //create the composer
     shared.composer = helpers.createComposer(true);
 
+    qr.canvas({
+        canvas: document.getElementById('qr-code'),
+        value: 'http://neocotic.com/qr.js',
+        background: "rgba(0,0,0,0)"
+    });
+
     $container.style.display ="block";
     $hud.style.display ="block";
 }

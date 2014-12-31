@@ -14,6 +14,8 @@ body {background: #263238; margin: 0px; padding: 0px;}
 #controls ul li ul li:first-child {margin: 0 0 0-10px;}
 #controls ul li ul li:last-child {border-right: 0px; margin-right: -10px;}
 
+#controls ul #take-picture { background-color: #4CAF50;}
+
 .icon { width: 24px; height: 24px; }
 .off {opacity: .5;}
 
