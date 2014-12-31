@@ -78,6 +78,9 @@ var init = function () {
     shared.renderer.setClearColor(shared.option.backgroundColor, 1);
     shared.renderer.setSize(WIDTH, HEIGHT);
 
+    var canvas = $container.appendChild(shared.renderer.domElement);
+
+
     //create a camera
     shared.camera =
         new THREE.CombinedCamera(
@@ -161,8 +164,17 @@ var init = function () {
         document.addEventListener( 'webkitpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
     }
 
-    //add the element to draw on
-    canvas = $container.appendChild(shared.renderer.domElement);
+    //create shaders to render
+    shared.shader = {
+        renderPass: new THREE.RenderPass(shared.scene, shared.camera),
+        copyPass : new THREE.ShaderPass( THREE.CopyShader ),
+        hblur : new THREE.ShaderPass(THREE.HorizontalBlurShader),
+        vblur : new THREE.ShaderPass(THREE.VerticalBlurShader)
+    }
+    shared.shader.copyPass.renderToScreen = true;
+
+    //create the composer
+    shared.composer = helpers.createComposer(true);
 }
 
 var anim = function () {
@@ -216,8 +228,8 @@ var anim = function () {
         shared.cameraMan.translateZ(-10)
     }
 
-    shared.renderer.render(shared.scene, shared.camera);
-
+    //shared.renderer.render(shared.scene, shared.camera);
+shared.composer.render()
     stats.end();
 };
 

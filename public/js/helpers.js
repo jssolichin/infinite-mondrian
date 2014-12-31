@@ -51,10 +51,32 @@ var helpers = {
     },
     onPointerLockChange: function ( event, element ) {
 
-        if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element )
+        if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ){
             shared.controls.mouse = true;
-        else
+
+            shared.composer = helpers.createComposer(false);
+        }
+        else{
             shared.controls.mouse = false;
 
+            shared.composer = helpers.createComposer(true);
+        }
+
+    },
+    createComposer: function (blur){
+
+        var composer = new THREE.EffectComposer(shared.renderer);
+        composer.addPass(shared.shader.renderPass);
+
+        if(blur){
+            composer.addPass(shared.shader.hblur);
+            composer.addPass(shared.shader.vblur);
+        }
+
+        composer.addPass(shared.shader.copyPass);
+
+        return composer;
+
     }
+
 };
