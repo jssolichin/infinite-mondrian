@@ -1,6 +1,7 @@
 /**
  * Created by Jonathan on 11/17/2014.
  */
+    var device = "host";
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 

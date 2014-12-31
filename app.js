@@ -45,7 +45,10 @@ app.post('/saveimage', function(request, response){
     });
     request.on('end',function(d){
         var img = new Buffer(imgUri, 'base64');
-        fs.writeFile(imgPath+randomValueBase64(7)+'.png', img, 'base64', function(err) {
+        var filename = imgPath+randomValueBase64(7)+'.png';
+        console.log(filename)
+        response.send(filename);
+        fs.writeFile(filename, img, 'base64', function(err) {
             if(err)
                 console.log(err);
         });

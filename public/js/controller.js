@@ -1,19 +1,11 @@
 /*
  * Created by Jonathan on 12/14/2014.
  */
-
 //editable variable
 //var host= 'localhost';
 var host= '192.168.1.6';
 var receiver = 'receiver';
-var difference = 30;
-
-//html elements
-var $decrementFov = document.getElementById('decrement-fov');
-var $incrementFov = document.getElementById('increment-fov');
-var $toggleFog = document.getElementById('toggle-fog');
-var $toggleCamera = document.getElementById('toggle-camera');
-var $takePicture = document.getElementById('take-picture');
+var device = 'controller';
 
 var $photorollUl = document.getElementById('photo-roll').children[0];
 
@@ -60,26 +52,5 @@ conn.on('open', function() {
         var orientation = {orientationChange: window.orientation || 0};
 
         conn.send(orientation);
-    });
-
-    $decrementFov.addEventListener('click', function () {
-        var option = {change: 'fov', increment: -difference};
-        conn.send(option);
-    });
-    $incrementFov.addEventListener('click', function () {
-        console.log(3)
-        var option = {change:'fov', increment: difference};
-        conn.send(option);
-    });
-
-    $toggleCamera.addEventListener('click', function () {
-        conn.send({toggleCamera: true});
-    });
-    $toggleFog.addEventListener('click', function () {
-        this.children[0].classList.toggle('off');
-        conn.send({toggleFog: true})
-    });
-    $takePicture.addEventListener('click', function () {
-        conn.send({takePicture: true});
     });
 });

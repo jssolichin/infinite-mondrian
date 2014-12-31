@@ -16,13 +16,16 @@ var helpers = {
         xhr.onload = function () {
             if (xhr.status === 200) {
                 // File(s) uploaded.
-                console.log('uploadReady')
+                console.log('Upload Ready')
             } else {
                 alert('An error occurred!');
             }
         };
 
         xhr.send(blob);
+
+        return xhr;
+
     },
     resizeHandler: function(camera, renderer) {
         WIDTH = window.innerWidth;
@@ -51,29 +54,39 @@ var helpers = {
     },
     onPointerLockChange: function ( event, element ) {
 
-        var $instructionsWrapper = document.getElementById('instructions-wrapper');
-        var $controls = document.getElementById('controls');
         var $hint = document.getElementById('hint');
 
         if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ){
             shared.controls.mouse = true;
-
-            shared.composer = helpers.createComposer(false);
-
-            $instructionsWrapper.className = 'animated fadeOut';
-            $controls.className = 'animated fadeOut';
+            helpers.instructionToggle(false)
             $hint.className = 'animated fadeIn';
         }
         else{
             shared.controls.mouse = false;
+            helpers.instructionToggle(true)
+            $hint.className = 'animated fadeOut';
+        }
 
+    },
+    instructionToggle: function (on){
+
+
+        var $instructionsWrapper = document.getElementById('instructions-wrapper');
+        var $controls = document.getElementById('controls');
+
+        if(on){
             shared.composer = helpers.createComposer(true);
 
             $instructionsWrapper.className = 'animated fadeIn';
             $controls.className = 'animated fadeIn';
-            $hint.className = 'animated fadeOut';
-        }
 
+        } else {
+            shared.composer = helpers.createComposer(false);
+
+            $instructionsWrapper.className = 'animated fadeOut';
+            $controls.className = 'animated fadeOut';
+
+        }
     },
     createComposer: function (blur){
 
@@ -88,6 +101,43 @@ var helpers = {
         composer.addPass(shared.shader.copyPass);
 
         return composer;
+
+    },
+    manipulateScene: function (data,conn){
+
+        if (shared && shared.gyro) {
+            if (data.gamma)
+                shared.gyro.changeDeviceOrientation(data);
+            else if (data.orientationChange !== undefined)
+                shared.gyro.changeOrientation(data.orientationChange);
+        }
+
+        if (data.change) {
+            console.log(data.increment)
+
+            shared.camera[data.change] += data.increment;
+            shared.camera.updateProjectionMatrix();
+
+        } else if (data.toggleCamera) {
+            if (shared.camera.inOrthographicMode)
+                shared.camera.toPerspective();
+            else
+                shared.camera.toOrthographic();
+        } else if (data.toggleFog) {
+            shared.scene.fog.far = shared.scene.fog.far == WIDTH * 5 ? 9999999 : WIDTH * 5;
+        } else if (data.takePicture) {
+            var img = shared.renderer.domElement.toDataURL("image/png");
+            var filename = helpers.uploadDataUrl(img);
+
+            filename.onreadystatechange = function() {
+                if (filename.readyState == 4) {
+                    console.log(filename.responseText)
+                    if(conn)
+                        conn.send({img: filename.responseText});
+                }
+            };
+
+        }
 
     }
 
