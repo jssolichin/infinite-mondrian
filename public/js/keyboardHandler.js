@@ -4,7 +4,7 @@ var handleKeyPresses = function (event){
     switch (key) {
         case ' ':
             //stop camera from moving
-            pause = !pause;
+            shared.controls.move = !shared.controls.move;
             break;
     }
 

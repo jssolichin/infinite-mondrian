@@ -1,11 +1,14 @@
 /**
  * Created by Jonathan on 11/17/2014.
  */
-var pause = false;
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 
 var shared = {
+    controls: {
+        mouse: false,
+        move: false
+    },
     option: {
         peer: {
             name: 'receiver',
@@ -140,11 +143,23 @@ var init = function () {
     //add keyboard listener
     document.addEventListener('keydown', handleKeyPresses, false);
 
-
     //re-set scene size when window resized
     window.addEventListener('resize', helpers.resizeHandler(shared.camera, shared.renderer), false);
 
+    var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
+    if(havePointerLock){
+        var element = document.body;
+
+        element.addEventListener('click', function (event){
+            helpers.pointerLockHandler(event, element);
+        });
+
+        //add pointer-lock listener
+        document.addEventListener( 'pointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+        document.addEventListener( 'mozpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+        document.addEventListener( 'webkitpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+    }
 
     //add the element to draw on
     canvas = $container.appendChild(shared.renderer.domElement);
@@ -160,7 +175,7 @@ var anim = function () {
 
     shared.gyro.update();
 
-    if(!pause) {
+    if(!shared.controls.move) {
 
         //check if boxes are out of bound or not
 

@@ -33,13 +33,28 @@ var helpers = {
         renderer.setSize(WIDTH, HEIGHT);
     },
     onMouseMove: function (event, cameraMan) {
-        //if ( scope.enabled === false ) return;
+        if ( shared.controls.mouse === false ) return;
 
         var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
         var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
         cameraMan.rotation.y -= movementX * 0.006;
         cameraMan.rotation.x -= movementY * 0.006;
+
+    },
+    pointerLockHandler: function ( event, element ) {
+
+        // Ask the browser to lock the pointer
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+        element.requestPointerLock();
+
+    },
+    onPointerLockChange: function ( event, element ) {
+
+        if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element )
+            shared.controls.mouse = true;
+        else
+            shared.controls.mouse = false;
 
     }
 };
