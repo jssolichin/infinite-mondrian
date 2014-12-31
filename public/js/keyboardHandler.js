@@ -22,7 +22,7 @@ var handleKeyPresses = function (event){
             helpers.manipulateScene({toggleFog: true});
             break;
         case 'T':
-            helpers.manipulateScene({takePicture: true});
+            helpers.manipulateScene({takePicture: true}, helpers);
             break;
     }
 

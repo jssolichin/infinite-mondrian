@@ -15,7 +15,7 @@ var transporter = function (data){
         conn.send(data);
     }
     else
-        helpers.manipulateScene(data);
+        helpers.manipulateScene(data, helpers);
 }
 
 $decrementFov.addEventListener('click', function () {

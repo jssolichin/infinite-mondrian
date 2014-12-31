@@ -17,4 +17,9 @@ canvas {cursor: pointer;}
 #controls {bottom: 0px; top: auto; background: none; font-variant: small-caps;}
 #controls ul li ul {margin-bottom: -10px; }
 
-#hint {position: absolute; bottom: 10px; right: 10px; color: #555; z-index: 999; opacity: 0;}
+#hint {position: absolute; bottom: 10px; left: 10px; color: #555; z-index: 999; opacity: 0;}
+
+#photo-roll {position: absolute; bottom: -10px; right: 40px; width: 10%; z-index: 999}
+#photo-roll ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
+#photo-roll ul li {margin-bottom: 30px;}
+#photo-roll img {border: 10px solid #fff; width: 100%; box-shadow: 0px 5px 10px rgba(0,0,0,.3)}

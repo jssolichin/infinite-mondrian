@@ -131,12 +131,32 @@ var helpers = {
 
             filename.onreadystatechange = function() {
                 if (filename.readyState == 4) {
-                    console.log(filename.responseText)
                     if(conn)
                         conn.send({img: filename.responseText});
                 }
             };
 
+
+        }
+
+    },
+    send: function (data){
+        //this is both the sender and receiver, since it is sending to itself
+
+        var $photorollUl = document.getElementById('photo-roll').children[0];
+
+        console.log(data)
+        if(data.img){
+            $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInUp"><img src="'+data.img+'"/></li>');
+            var $newImg = $photorollUl.children[0];
+
+            //remove animation event afterward so can scroll properly
+            var events = ["webkitAnimationEnd", "mozAnimationEnd", "MSAnimationEnd", "oanimationend", "animationend"];
+            events.forEach(function (event) {
+                $newImg.addEventListener(event, function () {
+                    this.removeAttribute('class')
+                }, false);
+            });
         }
 
     }
