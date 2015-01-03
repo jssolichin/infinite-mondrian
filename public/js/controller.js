@@ -3,9 +3,12 @@
  */
 //editable variable
 //var host= 'localhost';
+var url = window.location.pathname; // return segment1/segment2/segment3/segment4
+var urlArray = url.split( '/' );
+var receiver = 'host-'+urlArray[urlArray.length - 1];
 
 var host= 'localhost';
-var receiver = 'receiver';
+//var receiver = 'receiver';
 var device = 'controller';
 
 var $photorollUl = document.getElementById('photo-roll').children[0];
@@ -15,6 +18,7 @@ var $photorollUl = document.getElementById('photo-roll').children[0];
 var name = 'controller-' + Please.make_color().toString().substring(1);
 var peer = new Peer(name, {host: host, port: 3000, path: '/peerjs', debug: 3, config: {'iceServers': [ ]} });
 var conn = peer.connect(receiver);
+var currentId = 0;
 
 conn.on('data', function(data) {
     if(data.img){

@@ -4,6 +4,11 @@
     var device = "host";
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
+var controllerId = Please.make_color().toString().substring(1);
+
+var url = window.location; // return segment1/segment2/segment3/segment4
+var controllerUrl = url.href+controllerId;
+document.getElementById('controller-url').innerHTML = '<a href="'+controllerUrl+'">'+controllerUrl+'</a>';
 
 var shared = {
     controls: {
@@ -12,7 +17,7 @@ var shared = {
     },
     option: {
         peer: {
-            name: 'receiver',
+            name: 'host-'+controllerId,
             host: 'localhost'
         },
         camera: {
@@ -180,7 +185,7 @@ var init = function () {
 
     qr.canvas({
         canvas: document.getElementById('qr-code'),
-        value: 'http://neocotic.com/qr.js',
+        value: controllerUrl,
         background: "rgba(0,0,0,0)"
     });
 

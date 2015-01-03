@@ -5,6 +5,7 @@ canvas {cursor: pointer;}
 #hud {display: none; }
 
 #instructions-wrapper {position: absolute; bottom: 100px; left: 50%; z-index: 999; pointer-events: none;}
+#instructions-wrapper a {pointer-events: auto;}
 #instructions {position: relative; left: -50%; text-align: center;}
 #instructions h1 {text-align: center; width: 300px; text-transform: uppercase; margin: 0px auto; padding: 0px;}
 
