@@ -4,7 +4,7 @@ canvas {cursor: pointer;}
 #container {display: none; position: relative; z-index: 0;}
 #hud {display: none; }
 
-#instructions-wrapper {position: absolute; top: 40%; left: 50%; z-index: 999; pointer-events: none;}
+#instructions-wrapper {position: absolute; bottom: 100px; left: 50%; z-index: 999; pointer-events: none;}
 #instructions {position: relative; left: -50%; text-align: center;}
 #instructions h1 {text-align: center; width: 300px; text-transform: uppercase; margin: 0px auto; padding: 0px;}
 
@@ -20,6 +20,18 @@ canvas {cursor: pointer;}
 #hint {position: absolute; bottom: 10px; left: 10px; color: #555; z-index: 999; opacity: 0;}
 
 #photo-roll {position: absolute; bottom: -10px; right: 40px; width: 10%; z-index: 999}
-#photo-roll ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
-#photo-roll ul li {margin-bottom: 30px;}
+#photo-roll > ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
+#photo-roll > ul li {margin-bottom: 30px;}
 #photo-roll img {border: 10px solid #fff; width: 100%; box-shadow: 0px 5px 10px rgba(0,0,0,.3)}
+
+#photo-roll:hover .sharer-0 {opacity: 1;}
+#photo-roll .sharer-0 {position: absolute; transition: opacity .3s ease; opacity: 0;top: 5px; left: 5px; height: 1px; width: 1px; padding: 5px;}
+#photo-roll .sharer-0 .social.active.top {-webkit-transform: scale(1) translateX(-10px); -moz-transform: scale(1) translateX(-10px); transform: scale(1) translateX(-10px);}
+#photo-roll .sharer-0 .social.networks-5 {width: auto;}
+#photo-roll .sharer-0 .social.top {margin-top: -75px;}
+#photo-roll .sharer-0 .social.center {margin-left: -30px;}
+#photo-roll .sharer-0 .entypo-export { background: #fff; border: 0px; padding: 2px; border-radius: 0px; }
+#photo-roll .sharer-0 .entypo-export span {display: none;}
+#photo-roll .sharer-0 .social ul {height: auto; background: none; width: 30px;}
+#photo-roll .sharer-0 .social ul li {float: none; width: 30px; font-size: 1em; padding: 5px 0 0 0; margin: 0px;}
+#photo-roll .sharer-0 .social ul li:hover {background: #4CAF50;}

@@ -21,5 +21,8 @@ body {background: #263238; margin: 0px; padding: 0px;}
 
 #photo-roll {margin: 130px 0 0 0; }
 #photo-roll ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
-#photo-roll ul li {margin-bottom: 30px;}
+#photo-roll ul li {margin-bottom: 30px; position: relative;}
 #photo-roll img {border: 20px solid #fff; width: 80%;}
+
+#photo-roll .sharer-0 {position: absolute; bottom: 40px; left: calc(50% - 40px);}
+

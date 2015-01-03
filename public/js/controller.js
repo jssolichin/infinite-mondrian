@@ -3,7 +3,8 @@
  */
 //editable variable
 //var host= 'localhost';
-var host= '192.168.1.6';
+
+var host= 'localhost';
 var receiver = 'receiver';
 var device = 'controller';
 
@@ -17,7 +18,10 @@ var conn = peer.connect(receiver);
 
 conn.on('data', function(data) {
     if(data.img){
-        $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInDown"><img src="'+data.img+'"/></li>');
+        var id = "id"+currentId;
+        currentId++;
+        $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInUp" ><div id="'+id+'"></div><img src="'+data.img+'"/></li>');
+        var share = new Share('#'+id, function (){return shareSettings(data);});
         var $newImg = $photorollUl.children[0];
 
         //remove animation event afterward so can scroll properly
