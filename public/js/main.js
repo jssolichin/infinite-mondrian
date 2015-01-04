@@ -193,9 +193,17 @@ var init = function () {
     $hud.style.display ="block";
 }
 
+var frameCounter = 0;
 var anim = function () {
 
     stats.begin();
+
+    if(frameCounter === 20){
+        helpers.addTrails();
+        frameCounter = 0;
+    }
+    else
+        frameCounter++;
 
     requestAnimationFrame(anim);
 
@@ -212,7 +220,7 @@ var anim = function () {
         cameraLoc.setFromMatrixPosition( shared.cameraMan.matrixWorld );
 
         //get camera direction
-        var cameraDir = new THREE.Vector3(0,0,-1)
+        var cameraDir = new THREE.Vector3(0,0,-1);
         cameraDir.applyQuaternion(shared.cameraMan.quaternion);
 
         //go through each box

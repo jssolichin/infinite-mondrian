@@ -162,6 +162,28 @@ var helpers = {
             });
         }
 
+    },
+    addTrails: function(){
+
+        //get current direction
+        var q = shared.cameraMan.quaternion;
+        var cameraDir = new THREE.Vector3(0,0,-1);
+        cameraDir.applyQuaternion(q)
+
+        //change vector to point to opposite direction and behind
+        cameraDir.normalize().multiplyScalar(-290); //behind camera
+
+        //add a new box for trail
+        var geometry = new THREE.BoxGeometry(10,10,10);
+        var material = new THREE.MeshLambertMaterial( {color: 0x00ff00} );
+        var mesh = new THREE.Mesh(geometry,material);
+        shared.scene.add(mesh);
+
+        //move the box to a position behind the camera
+        mesh.position.copy(shared.cameraMan.position);
+        mesh.translateX (cameraDir.x);
+        mesh.translateY (cameraDir.y);
+        mesh.translateZ (cameraDir.z);
     }
 
 };

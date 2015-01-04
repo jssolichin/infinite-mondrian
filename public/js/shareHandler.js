@@ -1,8 +1,7 @@
 /**
  * Created by Jonathan on 1/2/2015.
  */
-
-    var currentId = 0;
+var currentId = 0;
 var shareSettings = function (data){
     return {
         networks: {
