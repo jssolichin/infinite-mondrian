@@ -5,6 +5,9 @@ var helpers = {
     generateRandomFloat: function (min, max) {
         return Math.random() * (max - min ) + min;
     },
+    isTouchCapable: function(){
+        return !!('ontouchstart' in window);
+    },
     uploadDataUrl: function (blob, filename) {
         //http://blog.teamtreehouse.com/uploading-files-ajax
 
@@ -58,18 +61,17 @@ var helpers = {
 
         if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ){
             shared.controls.mouse = true;
-            helpers.instructionToggle(false)
+            helpers.instructionToggle(false);
             $hint.className = 'animated fadeIn';
         }
         else{
             shared.controls.mouse = false;
-            helpers.instructionToggle(true)
+            helpers.instructionToggle(true);
             $hint.className = 'animated fadeOut';
         }
 
     },
     instructionToggle: function (on){
-
 
         var $instructionsWrapper = document.getElementById('instructions-wrapper');
         var $controls = document.getElementById('controls');
@@ -154,11 +156,26 @@ var helpers = {
 
             var $newImg = $photorollUl.children[0];
 
+            if($photorollUl.children.length > 5){
+                var $lastImg = $photorollUl.children[$photorollUl.children.length-1];
+                $lastImg.className = "animated fadeOut";
+                $lastImg.parentNode.removeChild($lastImg);
+            }
+
             //remove animation event afterward so can scroll properly
             var events = ["webkitAnimationEnd", "mozAnimationEnd", "MSAnimationEnd", "oanimationend", "animationend"];
             events.forEach(function (event) {
                 $newImg.addEventListener(event, function () {
+                    if(this.className.indexOf('fadeOut') >= 0)
+                        $newImg.parentNode.removeChild($newImg);
+                    else
+                        this.removeAttribute('class');
                 }, false);
+
+                window.setTimeout(function(){
+                    $newImg.className += "animated fadeOut";
+                }, shared.option.galleryRemoveTimeout);
+
             });
         }
 

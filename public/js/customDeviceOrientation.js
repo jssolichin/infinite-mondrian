@@ -110,6 +110,10 @@ THREE.DeviceOrientationControls = function ( object ) {
 
     };
 
+    this.status = function (){
+        return this.freeze;
+    }
+
     // The angles alpha, beta and gamma form a set of intrinsic Tait-Bryan angles of type Z-X'-Y''
 
     setObjectQuaternion = function () {

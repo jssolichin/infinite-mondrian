@@ -31,7 +31,8 @@ var shared = {
         backgroundColor: 0xffffff,
         box: {
             width: WIDTH/2, height: HEIGHT/2, depth: WIDTH/2, multicolor: true
-        }
+        },
+        galleryRemoveTimeout: 10000
     },
 
     barOptionGenerator: function(){
@@ -153,23 +154,33 @@ var init = function () {
     //add keyboard listener
     document.addEventListener('keydown', handleKeyPresses, false);
 
+    if(helpers.isTouchCapable()){
+        //add touch listener
+        canvas.addEventListener('touchstart', function(){
+            if(shared.gyro.status())
+                shared.gyro.connect();
+            else
+                shared.gyro.disconnect();
+            helpers.instructionToggle(shared.gyro.status());
+        });
+    } else {
+        var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+        if(havePointerLock){
+            var element = canvas;
+
+            element.addEventListener('click', function (event){
+                helpers.pointerLockHandler(event, element);
+            });
+
+            //add pointer-lock listener
+            document.addEventListener( 'pointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+            document.addEventListener( 'mozpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+            document.addEventListener( 'webkitpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
+        }
+    }
+
     //re-set scene size when window resized
     window.addEventListener('resize', helpers.resizeHandler(shared.camera, shared.renderer), false);
-
-    var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-
-    if(havePointerLock){
-        var element = canvas;
-
-        element.addEventListener('click', function (event){
-            helpers.pointerLockHandler(event, element);
-        });
-
-        //add pointer-lock listener
-        document.addEventListener( 'pointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
-        document.addEventListener( 'mozpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
-        document.addEventListener( 'webkitpointerlockchange', function (event){helpers.onPointerLockChange(event, element);}, false );
-    }
 
     //create shaders to render
     shared.shader = {
@@ -189,8 +200,20 @@ var init = function () {
         background: "rgba(0,0,0,0)"
     });
 
+    if(helpers.isTouchCapable()){
+        var $controls = document.getElementById('controls');
+        var $instructionsWrapper = document.getElementById('instructions-wrapper');
+        var $methods = document.getElementById('methods');
+        $controls.style.display = "none";
+        $instructionsWrapper.style.bottom = 'auto';
+        $instructionsWrapper.style.top = '20px';
+        $methods.children[0].innerHTML = "Tap anywhere to use your gyroscope"
+    }
+
     $container.style.display ="block";
     $hud.style.display ="block";
+
+
 }
 
 var frameCounter = 0;
@@ -198,6 +221,7 @@ var anim = function () {
 
     stats.begin();
 
+    //add small boxes behind camera periodically to create movement trails
     if(frameCounter === 20){
         helpers.addTrails();
         frameCounter = 0;
@@ -205,8 +229,7 @@ var anim = function () {
     else
         frameCounter++;
 
-    requestAnimationFrame(anim);
-
+    //update the location of objects
     shared.scene.updateMatrixWorld();
 
     shared.gyro.update();
@@ -240,20 +263,22 @@ var anim = function () {
             //check whether current box is out of bounds and needs to be moved
             //box is out of bounds when it is behind the camera, and inside fog
             var a = angleToBox > 1.67;
-            var b = distToBox > shared.option.distanceFog * 1.5;
+            var b = distToBox > shared.option.distanceFog * 1.8;
 
             if(a && b){
                 //move box somewhere nearby if it is out of bounds
-                shared.moveBox(i, cameraDir)
+                shared.moveBox(i, cameraDir);
             }
         }
 
         //move forward in the direction the camera is facing
-        shared.cameraMan.translateZ(-10)
+        shared.cameraMan.translateZ(-10);
     }
 
-    //shared.renderer.render(shared.scene, shared.camera);
-shared.composer.render()
+    shared.composer.render();
+
+    requestAnimationFrame(anim);
+
     stats.end();
 };
 
