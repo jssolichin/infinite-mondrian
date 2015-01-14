@@ -156,11 +156,17 @@ var init = function () {
 
     if(helpers.isTouchCapable()){
         //add touch listener
-        canvas.addEventListener('touchstart', function(){
-            if(shared.gyro.status())
+        $container.addEventListener('touchstart', function(){
+            if(shared.gyro.status()){
                 shared.gyro.connect();
-            else
+                helpers.requestFullscreen($container);
+            }
+            else{
+                helpers.cancelFullscreen();
                 shared.gyro.disconnect();
+            }
+
+            helpers.resizeHandler(shared.camera, shared.renderer);
             helpers.instructionToggle(shared.gyro.status());
         });
     } else {
@@ -180,7 +186,9 @@ var init = function () {
     }
 
     //re-set scene size when window resized
-    window.addEventListener('resize', helpers.resizeHandler(shared.camera, shared.renderer), false);
+    window.addEventListener('resize', function(){
+        helpers.resizeHandler(shared.camera, shared.renderer)
+    }, false);
 
     //create shaders to render
     shared.shader = {
@@ -212,7 +220,6 @@ var init = function () {
 
     $container.style.display ="block";
     $hud.style.display ="block";
-
 
 }
 
