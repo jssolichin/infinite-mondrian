@@ -23,13 +23,13 @@ app.use("/node_modules", express.static(process.env.PWD + '/node_modules'));
 app.use('/peerjs', ExpressPeerServer(server, options));
 
 app.get('/', function(req, res){
-    res.sendFile(process.env.PWD + '\\views\\index.html');
+    res.sendFile(process.env.PWD + '/views/index.html');
 });
 app.get('/cardboard', function(req, res){
-    res.sendFile(process.env.PWD + '\\views\\index.html');
+    res.sendFile(process.env.PWD + '/views/index.html');
 });
 app.get('/:id', function(req, res){
-    res.sendFile(process.env.PWD + '\\views\\controller.html');
+    res.sendFile(process.env.PWD + '/views/controller.html');
 });
 
 //http://blog.tompawlak.org/how-to-generate-random-values-nodejs-javascript
