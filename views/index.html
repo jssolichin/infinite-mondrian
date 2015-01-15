@@ -20,20 +20,26 @@
                 <h1 >Infinite Mondrian</h1>
                 <ul id="methods">
                     <li>
-                        Click anywhere to use your mouse
-                    </li>
-                    <li>
                         <fieldset>
-                            <legend>or</legend>
-                            Go to: <span id="controller-url"></span> on your Android phone to use it a gyroscope remote controller
+                            <legend>use this device </legend>
+                            <span id="this-device-instruction">Click anywhere and use your keyboard</span>
                         </fieldset>
                     </li>
-                    <li>
+                    <li class="hide-mobile">
                         <fieldset>
-                            <legend>or</legend>
-                        Scan the QR code below: <br />
-                        <canvas id="qr-code"></canvas>
-                            </fieldset>
+                            <legend>or use a remote controller</legend>
+                            Go to: <span id="controller-url"></span> on your Android to use it's gyroscope.
+                            <canvas id="qr-code"></canvas>
+                        </fieldset>
+                    </li>
+                    <li id="cardboard-toggle">
+                        <fieldset>
+                            <legend>or use Google Cardboard VR</legend>
+                            <div id="cardboard-button">
+                                <img id="cardboard" src="public/img/cardboard.png">
+                                <span id="cardboard-hint">Enable</span>
+                            </div>
+                        </fieldset>
                     </li>
                 </ul>
             </div>
@@ -83,6 +89,7 @@
     <script src="../bower_components/RenderPass/index.js"></script>
     <script src="../bower_components/MaskPass/index.js"></script>
     <script src="../bower_components/ShaderPass/index.js"></script>
+    <script src="../bower_components/stereoEffect/index.js"></script>
 
     <script src="../public/js/customDeviceOrientation.js"></script>
     <script src="../public/js/shareHandler.js"></script>

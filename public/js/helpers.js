@@ -37,6 +37,9 @@ var helpers = {
         camera.aspect = WIDTH / HEIGHT;
         camera.updateProjectionMatrix();
         renderer.setSize(WIDTH, HEIGHT);
+
+        if(shared.option.cardboard)
+            shared.effect.setSize(WIDTH, HEIGHT);
     },
     requestFullscreen: function (el){
         if (el.requestFullscreen) {
@@ -174,7 +177,8 @@ var helpers = {
             var id = "id"+currentId;
             currentId++;
             $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInUp" ><div id="'+id+'"></div><img src="'+data.img+'"/></li>');
-            var share = new Share('#'+id, function (){return shareSettings(data);} );
+            var shareOption = shareSettings(data);
+            var share = new Share('#'+id, shareOption);
 
             var $newImg = $photorollUl.children[0];
 
@@ -223,6 +227,14 @@ var helpers = {
         mesh.translateX (cameraDir.x);
         mesh.translateY (cameraDir.y);
         mesh.translateZ (cameraDir.z);
-    }
+    },
+    createEffect: function (){
+        if(shared.effect === undefined){
+            shared.effect = new THREE.StereoEffect( shared.renderer );
+            shared.effect.separation = 10;
+        }
+        helpers.resizeHandler(shared.camera, shared.renderer)
+        shared.effect.setSize( window.innerWidth, window.innerHeight );
 
+    }
 };

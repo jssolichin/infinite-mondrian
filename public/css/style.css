@@ -10,10 +10,12 @@ canvas {cursor: pointer;}
 #instructions h1 {text-align: center; width: 300px; text-transform: uppercase; margin: 0px auto; padding: 0px;}
 
 #methods {width: 300px;list-style-type: none; margin: 0px; padding: 10px;}
-#methods li:first-child {border-top: 1px solid #333; padding: 10px;}
 #methods li fieldset {border: 0px; border-top: 1px solid #333; margin: 0px;}
 #methods li fieldset legend {margin: 0 auto; padding: 0 10px; font-style: italic; font-variant: small-caps}
-#methods li canvas {margin: 10px; cursor: auto}
+#methods li canvas {margin: 10px; cursor: auto; margin: 10px auto; display: block;}
+#cardboard-toggle {pointer-events: auto;}
+#cardboard-button {width: 35%; margin: 10px auto; border-radius: 10px; border: 1px solid #000; padding: 5px; text-transform: lowercase; font-variant: small-caps}
+#cardboard-button img {width: 70%; display: block; margin: 10px auto;}
 
 #controls {bottom: 0px; top: auto; background: none; font-variant: small-caps;}
 #controls ul li ul {margin-bottom: -10px; }
@@ -35,3 +37,8 @@ canvas {cursor: pointer;}
 #photo-roll .sharer-0 .social ul {height: auto; background: none; width: 30px;}
 #photo-roll .sharer-0 .social ul li {float: none; width: 30px; font-size: 1em; padding: 5px 0 0 0; margin: 0px;}
 #photo-roll .sharer-0 .social ul li:hover {background: #4CAF50;}
+
+
+@media only screen and (max-device-width: 480px){
+    .hide-mobile {display: none;}
+}

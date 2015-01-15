@@ -2,10 +2,10 @@ var handleKeyPresses = function (event){
     var key = String.fromCharCode(event.keyCode);
 
     switch (key) {
-        case ' ':
+        //case ' ':
             //stop camera from moving
-            shared.controls.move = !shared.controls.move;
-            break;
+        //    shared.controls.move = !shared.controls.move;
+        //    break;
         case 'A':
             var option = {change: 'fov', increment: -difference};
             helpers.manipulateScene(option);

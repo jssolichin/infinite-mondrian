@@ -1,13 +1,14 @@
 /**
  * Created by Jonathan on 11/17/2014.
  */
-    var device = "host";
+var device = "host";
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 var controllerId = Please.make_color().toString().substring(1);
 
+//set link variables
 var url = window.location; // return segment1/segment2/segment3/segment4
-var controllerUrl = url.href+controllerId;
+var controllerUrl = url.origin+'/'+controllerId;
 document.getElementById('controller-url').innerHTML = '<a href="'+controllerUrl+'">'+controllerUrl+'</a>';
 
 var shared = {
@@ -16,6 +17,7 @@ var shared = {
         move: false
     },
     option: {
+        cardboard: false,
         peer: {
             name: 'host-'+controllerId,
             host: 'localhost'
@@ -73,7 +75,6 @@ var shared = {
 
     }
 };
-
 
 var init = function () {
 
@@ -154,22 +155,72 @@ var init = function () {
     //add keyboard listener
     document.addEventListener('keydown', handleKeyPresses, false);
 
+    var cardboardToggler = function (){
+
+        var $hint = document.getElementById('cardboard-hint');
+
+        if(shared.option.cardboard === false){
+            shared.option.cardboard = true;
+            helpers.createEffect();
+            if(screen.orientation !== undefined )
+                screen.orientation.lock('landscape-primary');
+            if(helpers.isTouchCapable())
+                enableDeviceControl();
+            $hint.innerHTML = 'Disable';
+        }
+        else {
+            shared.option.cardboard = false;
+            if(screen.orientation !== undefined )
+                screen.orientation.lock('any');
+            helpers.resizeHandler(shared.camera, shared.renderer);
+            document.getElementById('cardboard-hint').innerHTML = 'Enable';
+        }
+    }
+    var enableDeviceControl = function (){
+        if(shared.gyro.status()){
+            shared.gyro.connect();
+            if(helpers.isTouchCapable())
+                helpers.requestFullscreen($container);
+        }
+        else{
+            if(helpers.isTouchCapable())
+                helpers.cancelFullscreen();
+            shared.gyro.disconnect();
+        }
+
+        helpers.instructionToggle(shared.gyro.status());
+
+    };
+    //add cardboard listener
+    var $cardboardToggle = document.getElementById('cardboard-toggle');
+    $cardboardToggle.addEventListener('click', function (){
+        var toggle = false;
+        if(shared.option.cardboard == false && !helpers.isTouchCapable()){
+            var cardboardUrl = url.origin+'/cardboard';
+            if(confirm('You should be doing this on a mobile device (go to: '+cardboardUrl+'). Press Ok to proceed anyway')){
+               toggle = true;
+            }
+            else{
+                toggle = false;
+            }
+        }
+        else toggle = true;
+        if(toggle){
+            cardboardToggler();
+        }
+
+
+    });
+
+
     if(helpers.isTouchCapable()){
         //add touch listener
         $container.addEventListener('touchstart', function(){
-            if(shared.gyro.status()){
-                shared.gyro.connect();
-                helpers.requestFullscreen($container);
-            }
-            else{
-                helpers.cancelFullscreen();
-                shared.gyro.disconnect();
-            }
-
-            helpers.resizeHandler(shared.camera, shared.renderer);
-            helpers.instructionToggle(shared.gyro.status());
+            enableDeviceControl();
         });
+
     } else {
+
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
         if(havePointerLock){
             var element = canvas;
@@ -210,17 +261,21 @@ var init = function () {
 
     if(helpers.isTouchCapable()){
         var $controls = document.getElementById('controls');
+        var $deviceInstruction = document.getElementById('this-device-instruction');
         var $instructionsWrapper = document.getElementById('instructions-wrapper');
         var $methods = document.getElementById('methods');
         $controls.style.display = "none";
         $instructionsWrapper.style.bottom = 'auto';
         $instructionsWrapper.style.top = '20px';
-        $methods.children[0].innerHTML = "Tap anywhere to use your gyroscope"
+        $deviceInstruction.innerHTML = "Tap anywhere to use your gyroscope"
     }
 
     $container.style.display ="block";
     $hud.style.display ="block";
 
+    //start cardboard mode
+    if(url.href.indexOf('cardboard') >= 0)
+        cardboardToggler();
 }
 
 var frameCounter = 0;
@@ -282,7 +337,12 @@ var anim = function () {
         shared.cameraMan.translateZ(-10);
     }
 
-    shared.composer.render();
+    if(shared.option.cardboard){
+        shared.effect.render( shared.scene, shared.camera );
+    }
+    else {
+        shared.composer.render();
+    }
 
     requestAnimationFrame(anim);
 

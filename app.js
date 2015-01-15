@@ -25,6 +25,9 @@ app.use('/peerjs', ExpressPeerServer(server, options));
 app.get('/', function(req, res){
     res.sendFile(process.env.PWD + '\\views\\index.html');
 });
+app.get('/cardboard', function(req, res){
+    res.sendFile(process.env.PWD + '\\views\\index.html');
+});
 app.get('/:id', function(req, res){
     res.sendFile(process.env.PWD + '\\views\\controller.html');
 });

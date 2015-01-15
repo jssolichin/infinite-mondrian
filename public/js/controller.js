@@ -25,14 +25,15 @@ conn.on('data', function(data) {
         var id = "id"+currentId;
         currentId++;
         $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInUp" ><div id="'+id+'"></div><img src="'+data.img+'"/></li>');
-        var share = new Share('#'+id, function (){return shareSettings(data);});
+        var shareOption = shareSettings(data);
+        var share = new Share('#'+id, shareOption);
         var $newImg = $photorollUl.children[0];
 
         //remove animation event afterward so can scroll properly
         var events = ["webkitAnimationEnd", "mozAnimationEnd", "MSAnimationEnd", "oanimationend", "animationend"];
         events.forEach(function (event) {
             $newImg.addEventListener(event, function () {
-                this.removeAttribute('class')
+                this.removeAttribute('class');
             }, false);
         });
     }

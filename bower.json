@@ -24,20 +24,22 @@
     "tests"
   ],
   "dependencies": {
-    "threejs": "*",
-    "stats.js": "*",
-    "pleasejs": "~0.4.2",
+    "animate.css": "~3.2.0",
     "CombinedCamera": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/cameras/CombinedCamera.js",
     "CopyShader": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/shaders/CopyShader.js",
     "EffectComposer": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/EffectComposer.js",
-    "VerticalBlurShader": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/shaders/VerticalBlurShader.js",
     "HorizontalBlurShader": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/shaders/HorizontalBlurShader.js",
-    "RenderPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/RenderPass.js",
     "MaskPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/MaskPass.js",
-    "ShaderPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/ShaderPass.js",
-    "animate.css": "~3.2.0",
-    "peerjs": "~0.3.14",
     "material-design-icons": "~1.0.1",
-    "qr-js": "~1.1.3"
+    "peerjs": "~0.3.14",
+    "pleasejs": "~0.4.2",
+    "qr-js": "~1.1.3",
+    "RenderPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/RenderPass.js",
+    "share-button": "~0.5.0",
+    "ShaderPass": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/postprocessing/ShaderPass.js",
+    "stats.js": "*",
+    "stereoEffect": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/effects/StereoEffect.js",
+    "threejs": "*",
+    "VerticalBlurShader": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/shaders/VerticalBlurShader.js"
   }
 }
