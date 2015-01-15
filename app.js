@@ -2,7 +2,7 @@
  * Created by Jonathan on 12/3/2014.
  */
 process.env.PWD = process.cwd();
-var imgPath = 'public/img/';
+var imgPath = 'public/img/shots/';
 
 var crypto = require('crypto');
 var fs = require('fs');
