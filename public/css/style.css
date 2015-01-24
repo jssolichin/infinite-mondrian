@@ -1,10 +1,11 @@
 body {margin: 0px; padding: 0px; overflow: hidden; font-family: serif;}
+a {font-style: italic; text-decoration: none; color: #333;}
 canvas {cursor: pointer;}
 
 #container {display: none; position: relative; z-index: 0;}
 #hud {display: none; }
 
-#instructions-wrapper {position: absolute; bottom: 100px; left: 50%; z-index: 999; pointer-events: none;}
+#instructions-wrapper {position: absolute; top: 50%; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); transform: translateY(-50%); left: 50%; z-index: 999; pointer-events: none;}
 #instructions-wrapper a {pointer-events: auto;}
 #instructions {position: relative; left: -50%; text-align: center;}
 #instructions h1 {text-align: center; width: 300px; text-transform: uppercase; margin: 0px auto; padding: 0px;}
@@ -21,6 +22,7 @@ canvas {cursor: pointer;}
 #controls ul li ul {margin-bottom: -10px; }
 
 #hint {position: absolute; bottom: 10px; left: 10px; color: #555; z-index: 999; opacity: 0;}
+#hint2 {position: absolute; bottom: 10px; right: 10px; color: #555; z-index: 999; display: none; }
 
 #photo-roll {position: absolute; bottom: -10px; right: 40px; width: 10%; z-index: 999}
 #photo-roll > ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
@@ -38,7 +40,49 @@ canvas {cursor: pointer;}
 #photo-roll .sharer-0 .social ul li {float: none; width: 30px; font-size: 1em; padding: 5px 0 0 0; margin: 0px;}
 #photo-roll .sharer-0 .social ul li:hover {background: #4CAF50;}
 
-
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 800px){
     .hide-mobile {display: none;}
+}
+@media only screen and (max-height: 300px){
+    #instructions-wrapper {left: auto;}
+    #instructions {left: auto;}
+    #instructions h1 {width: 100%;}
+    #methods {width: 100%;}
+    #methods:after {content:""; display:table; clear:both;}
+    #methods li {float: left; width: calc(50% - 20px); margin-left: 10px;}
+    #methods li:first-child {margin-left: 0px;}
+}
+.blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
 }

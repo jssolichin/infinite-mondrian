@@ -3,8 +3,8 @@
  */
 //editable variable
 //var host= 'localhost';
-var url = window.location.pathname; // return segment1/segment2/segment3/segment4
-var urlArray = url.split( '/' );
+var url = window.location;
+var urlArray = url.pathname.split( '/' );
 var receiver = 'host-'+urlArray[urlArray.length - 1];
 
 var host= 'localhost';

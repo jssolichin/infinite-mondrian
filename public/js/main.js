@@ -81,6 +81,7 @@ var init = function () {
     // get the DOM element to attach to
     var $container = document.getElementById('container');
     var $hud = document.getElementById('hud');
+    var $cardboardToggle = document.getElementById('cardboard-toggle');
 
     // create a WebGL renderer
     shared.renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true}); // required to support .toDataURL()
@@ -88,7 +89,6 @@ var init = function () {
     shared.renderer.setSize(WIDTH, HEIGHT);
 
     var canvas = $container.appendChild(shared.renderer.domElement);
-
 
     //create a camera
     shared.camera =
@@ -143,6 +143,11 @@ var init = function () {
         shared.boxes[i].move();
     }
 
+    //re-set scene size when window resized
+    window.addEventListener('resize', function(){
+        helpers.resizeHandler(shared.camera, shared.renderer)
+    }, false);
+
     //add peer listener
     var peer = new Peer(shared.option.peer.name, {host: shared.option.peer.host, port: 3000, path: '/peerjs'});
     peer.on('connection', peerHandler);
@@ -155,72 +160,32 @@ var init = function () {
     //add keyboard listener
     document.addEventListener('keydown', handleKeyPresses, false);
 
-    var cardboardToggler = function (){
+    //add hint to rotate if cardboard mode is on and not in landscape
+    window.addEventListener("orientationchange", helpers.rotateLandscapeHint, false);
 
-        var $hint = document.getElementById('cardboard-hint');
-
-        if(shared.option.cardboard === false){
-            shared.option.cardboard = true;
-            helpers.createEffect();
-            if(screen.orientation !== undefined )
-                screen.orientation.lock('landscape-primary');
-            if(helpers.isTouchCapable())
-                enableDeviceControl();
-            $hint.innerHTML = 'Disable';
-        }
-        else {
-            shared.option.cardboard = false;
-            if(screen.orientation !== undefined )
-                screen.orientation.lock('any');
-            helpers.resizeHandler(shared.camera, shared.renderer);
-            document.getElementById('cardboard-hint').innerHTML = 'Enable';
-        }
-    }
-    var enableDeviceControl = function (){
-        if(shared.gyro.status()){
-            shared.gyro.connect();
-            if(helpers.isTouchCapable())
-                helpers.requestFullscreen($container);
-        }
-        else{
-            if(helpers.isTouchCapable())
-                helpers.cancelFullscreen();
-            shared.gyro.disconnect();
-        }
-
-        helpers.instructionToggle(shared.gyro.status());
-
-    };
-    //add cardboard listener
-    var $cardboardToggle = document.getElementById('cardboard-toggle');
+    //add cardboard toggle
     $cardboardToggle.addEventListener('click', function (){
-        var toggle = false;
-        if(shared.option.cardboard == false && !helpers.isTouchCapable()){
-            var cardboardUrl = url.origin+'/cardboard';
-            if(confirm('You should be doing this on a mobile device (go to: '+cardboardUrl+'). Press Ok to proceed anyway')){
-               toggle = true;
+        if(shared.option.instructionVisible){
+            var toggle = false;
+            if(shared.option.cardboard == false && !helpers.isTouchCapable()){
+                var cardboardUrl = url.origin+'/cardboard';
+                if(confirm('You should be doing this on a mobile device (go to: '+cardboardUrl+'). Press Ok to proceed anyway'))
+                    toggle = true;
+                else
+                    toggle = false;
             }
-            else{
-                toggle = false;
-            }
-        }
-        else toggle = true;
-        if(toggle){
-            cardboardToggler();
-        }
+            else toggle = true;
 
-
+            if(toggle)
+                helpers.cardboardToggler();
+        }
     });
-
 
     if(helpers.isTouchCapable()){
         //add touch listener
-        $container.addEventListener('touchstart', function(){
-            enableDeviceControl();
-        });
-
+        $container.addEventListener('touchstart', helpers.enableDeviceControl);
     } else {
-
+        //add pointer listener (and lock them on click)
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
         if(havePointerLock){
             var element = canvas;
@@ -236,18 +201,13 @@ var init = function () {
         }
     }
 
-    //re-set scene size when window resized
-    window.addEventListener('resize', function(){
-        helpers.resizeHandler(shared.camera, shared.renderer)
-    }, false);
-
     //create shaders to render
     shared.shader = {
         renderPass: new THREE.RenderPass(shared.scene, shared.camera),
         copyPass : new THREE.ShaderPass( THREE.CopyShader ),
         hblur : new THREE.ShaderPass(THREE.HorizontalBlurShader),
         vblur : new THREE.ShaderPass(THREE.VerticalBlurShader)
-    }
+    };
     shared.shader.copyPass.renderToScreen = true;
 
     //create the composer
@@ -261,22 +221,20 @@ var init = function () {
 
     if(helpers.isTouchCapable()){
         var $controls = document.getElementById('controls');
-        var $deviceInstruction = document.getElementById('this-device-instruction');
         var $instructionsWrapper = document.getElementById('instructions-wrapper');
-        var $methods = document.getElementById('methods');
+        var $deviceInstruction = document.getElementById('this-device-instruction');
+
         $controls.style.display = "none";
         $instructionsWrapper.style.bottom = 'auto';
-        $instructionsWrapper.style.top = '20px';
         $deviceInstruction.innerHTML = "Tap anywhere to use your gyroscope"
     }
 
+    //once everything is ready make visible
     $container.style.display ="block";
     $hud.style.display ="block";
+    helpers.instructionToggle(true);
 
-    //start cardboard mode
-    if(url.href.indexOf('cardboard') >= 0)
-        cardboardToggler();
-}
+};
 
 var frameCounter = 0;
 var anim = function () {
@@ -316,7 +274,7 @@ var anim = function () {
                 x:  shared.boxes[i].mesh.position.x - cameraLoc.x,
                 y:  shared.boxes[i].mesh.position.y - cameraLoc.y,
                 z: shared.boxes[i].mesh.position.z - cameraLoc.z
-            }
+            };
             var vectorToBox = new THREE.Vector3(p.x, p.y, p.z);
 
             var angleToBox = cameraDir.angleTo(vectorToBox);

@@ -51,6 +51,10 @@ var helpers = {
         } else if (el.msRequestFullscreen) {
             el.msRequestFullscreen();
         }
+
+        //good fullscreen on cardboard requires landscape if possible
+        if(shared.option.cardboard == true && screen.orientation !== undefined )
+            screen.orientation.lock('landscape-primary');
     },
     cancelFullscreen: function (){
         if (document.exitFullscreen) {
@@ -98,6 +102,7 @@ var helpers = {
     },
     instructionToggle: function (on){
 
+        shared.option.instructionVisible = on;
         var $instructionsWrapper = document.getElementById('instructions-wrapper');
         var $controls = document.getElementById('controls');
 
@@ -231,10 +236,53 @@ var helpers = {
     createEffect: function (){
         if(shared.effect === undefined){
             shared.effect = new THREE.StereoEffect( shared.renderer );
-            shared.effect.separation = 10;
+            shared.effect.eyeSeparation = 10;
         }
         helpers.resizeHandler(shared.camera, shared.renderer)
         shared.effect.setSize( window.innerWidth, window.innerHeight );
+
+    },
+    rotateLandscapeHint:  function(){
+        if(shared.option.cardboard == true && window.orientation != 90){
+            document.getElementById('hint2').style.display = 'block';
+        }
+        else
+            document.getElementById('hint2').style.display = 'none';
+    },
+    cardboardToggler: function (){
+
+        var $hint = document.getElementById('cardboard-hint');
+
+        if(shared.option.cardboard === false){
+            shared.option.cardboard = true;
+            helpers.createEffect();
+            if(helpers.isTouchCapable())
+                helpers.enableDeviceControl();
+            $hint.innerHTML = 'Disable';
+        }
+        else {
+            shared.option.cardboard = false;
+            helpers.resizeHandler(shared.camera, shared.renderer);
+            document.getElementById('cardboard-hint').innerHTML = 'Enable';
+        }
+
+        helpers.rotateLandscapeHint();
+    },
+    enableDeviceControl: function (){
+        var $container = document.getElementById('container');
+
+        if(shared.gyro.status()){
+            shared.gyro.connect();
+            if(helpers.isTouchCapable())
+                helpers.requestFullscreen($container);
+        }
+        else{
+            if(helpers.isTouchCapable())
+                helpers.cancelFullscreen();
+            shared.gyro.disconnect();
+        }
+
+        helpers.instructionToggle(shared.gyro.status());
 
     }
 };
