@@ -19,8 +19,7 @@ var shared = {
     option: {
         cardboard: false,
         peer: {
-            name: 'host-'+controllerId,
-            host: 'localhost'
+            name: 'host-'+controllerId
         },
         camera: {
             viewAngle: 45,
@@ -149,7 +148,7 @@ var init = function () {
     }, false);
 
     //add peer listener
-    var peer = new Peer(shared.option.peer.name, {host: shared.option.peer.host, port: 3000, path: '/peerjs'});
+    var peer = new Peer(shared.option.peer.name, {host: config.server.host, port: config.server.port, path: '/peerjs'});
     peer.on('connection', peerHandler);
 
     //add mouse listener

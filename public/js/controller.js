@@ -7,7 +7,6 @@ var url = window.location;
 var urlArray = url.pathname.split( '/' );
 var receiver = 'host-'+urlArray[urlArray.length - 1];
 
-var host= 'localhost';
 //var receiver = 'receiver';
 var device = 'controller';
 
@@ -16,7 +15,7 @@ var $photorollUl = document.getElementById('photo-roll').children[0];
 
 //peerjs to connect with world
 var name = 'controller-' + Please.make_color().toString().substring(1);
-var peer = new Peer(name, {host: host, port: 3000, path: '/peerjs', debug: 3, config: {'iceServers': [ ]} });
+var peer = new Peer(name, {host: config.server.host, port: config.server.port, path: '/peerjs', debug: 3, config: {'iceServers': [ ]} });
 var conn = peer.connect(receiver);
 var currentId = 0;
 
