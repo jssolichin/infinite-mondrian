@@ -233,6 +233,8 @@ var init = function () {
     $hud.style.display ="block";
     helpers.instructionToggle(true);
 
+    if(url.pathname.indexOf('cardboard') >= 0)
+        helpers.cardboardToggler();
 };
 
 var frameCounter = 0;
