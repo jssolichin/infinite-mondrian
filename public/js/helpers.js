@@ -156,7 +156,7 @@ var helpers = {
             else
                 shared.camera.toOrthographic();
         } else if (data.toggleFog) {
-            shared.scene.fog.far = shared.scene.fog.far == WIDTH * 5 ? 9999999 : WIDTH * 5;
+            shared.scene.fog.far = shared.scene.fog.far == shared.option.distanceFog ? 9999999 : shared.option.distanceFog;
         } else if (data.takePicture) {
             var img = shared.renderer.domElement.toDataURL("image/png");
             var filename = helpers.uploadDataUrl(img);

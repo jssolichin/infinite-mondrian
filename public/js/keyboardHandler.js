@@ -18,7 +18,7 @@ var handleKeyPresses = function (event){
             helpers.manipulateScene({toggleCamera: true});
             break;
         case 'F':
-            this.children[0].classList.toggle('off');
+            document.getElementById('toggle-fog').children[0].classList.toggle('off');
             helpers.manipulateScene({toggleFog: true});
             break;
         case 'T':
