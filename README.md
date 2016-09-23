@@ -41,4 +41,4 @@ Originally done for [Jennifer Steinkamp](http://www.jsteinkamp.com/), with [John
 
 
 ---------------------------------------
-![Using Infinite Mondrian on Cardboard](http://jssolichin.com/wp-content/uploads/2015/01/peopleInfinite.png)
+![Using Infinite Mondrian on Cardboard](http://jssolichin.com/blog/wp-content/uploads/2015/01/peopleInfinite.png)
