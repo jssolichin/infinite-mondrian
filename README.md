@@ -7,11 +7,11 @@ Infinite Mondrian is a multi-platform (desktop, mobile, desktop+mobile, [Google 
 The present page talks more of the technical aspect of Infinite Mondrian. For the art aspect see the [blog post](http://jssolichin.com/infinite-mondrian/).
 
 ## Example shots taken in app
-![Default shot](http://jssolichin.com/wp-content/uploads/2015/01/6-1024x575.png)
-![Orthographic Camera](http://jssolichin.com/wp-content/uploads/2015/01/5-1024x575.png)
-![Orthographic Camera Top View](http://jssolichin.com/wp-content/uploads/2015/01/3-1024x575.png)
-![Perspective Camera with high FOV](http://jssolichin.com/wp-content/uploads/2015/01/2-1024x575.png)
-![Google cardboard VR View](http://jssolichin.com/wp-content/uploads/2015/01/Screenshot-91.png)
+![Default shot](http://jssolichin.com/blog/wp-content/uploads/2015/01/6-1024x575.png)
+![Orthographic Camera](http://jssolichin.com/blog/wp-content/uploads/2015/01/5-1024x575.png)
+![Orthographic Camera Top View](http://jssolichin.com/blog/wp-content/uploads/2015/01/3-1024x575.png)
+![Perspective Camera with high FOV](http://jssolichin.com/blog/wp-content/uploads/2015/01/2-1024x575.png)
+![Google cardboard VR View](http://jssolichin.com/blog/wp-content/uploads/2015/01/Screenshot-91.png)
 
 ## Usage
 * On a desktop: use mouse to navigate the world, and keyboard keys to manipulate the camera (letters on the button below instructions).
