@@ -83,7 +83,7 @@ var init = function () {
     var $cardboardToggle = document.getElementById('cardboard-toggle');
 
     // create a WebGL renderer
-    shared.renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true}); // required to support .toDataURL()
+    shared.renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true}); // required to support .toDataURL()
     shared.renderer.setClearColor(shared.option.backgroundColor, 1);
     shared.renderer.setSize(WIDTH, HEIGHT);
 
