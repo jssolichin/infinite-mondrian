@@ -28,17 +28,11 @@ canvas {cursor: pointer;}
 #photo-roll > ul {list-style: none; margin: 0px; padding: 0px; text-align: center;}
 #photo-roll > ul li {margin-bottom: 30px;}
 #photo-roll img {border: 10px solid #fff; width: 100%; box-shadow: 0px 5px 10px rgba(0,0,0,.3)}
+#photo-roll > ul li {position: relative;}
+#photo-roll .share-actions {position: absolute; top: 14px; left: 14px; display: flex; gap: 4px;}
+#photo-roll .share-actions a, #photo-roll .share-actions button {background: #fff; color: #000; border: 0; padding: 2px 6px; font: inherit; font-size: .8em; text-decoration: none; cursor: pointer;}
+#photo-roll .share-actions a:hover, #photo-roll .share-actions button:hover {background: #4CAF50; color: #fff;}
 
-#photo-roll .sharer-0 {position: absolute; top: 5px; left: 5px; height: 1px; width: 1px; padding: 5px;}
-#photo-roll .sharer-0 .social.active.top {-webkit-transform: scale(1) translateX(-10px); -moz-transform: scale(1) translateX(-10px); transform: scale(1) translateX(-10px);}
-#photo-roll .sharer-0 .social.networks-5 {width: auto;}
-#photo-roll .sharer-0 .social.top {margin-top: -75px;}
-#photo-roll .sharer-0 .social.center {margin-left: -30px;}
-#photo-roll .sharer-0 .entypo-export { background: #fff; border: 0px; padding: 2px; border-radius: 0px; }
-#photo-roll .sharer-0 .entypo-export span {display: none;}
-#photo-roll .sharer-0 .social ul {height: auto; background: none; width: 30px;}
-#photo-roll .sharer-0 .social ul li {float: none; width: 30px; font-size: 1em; padding: 5px 0 0 0; margin: 0px;}
-#photo-roll .sharer-0 .social ul li:hover {background: #4CAF50;}
 
 @media only screen and (max-device-width: 800px){
     .hide-mobile {display: none;}

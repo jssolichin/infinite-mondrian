@@ -8,28 +8,6 @@ var helpers = {
     isTouchCapable: function(){
         return !!('ontouchstart' in window);
     },
-    uploadDataUrl: function (blob, filename) {
-        //http://blog.teamtreehouse.com/uploading-files-ajax
-
-        var xhr = new XMLHttpRequest();
-
-        // Open the connection.
-        xhr.open('POST', 'saveimage', true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                // File(s) uploaded.
-                console.log('Upload Ready')
-            } else {
-                alert('An error occurred!');
-            }
-        };
-
-        xhr.send(blob);
-
-        return xhr;
-
-    },
     resizeHandler: function(camera, renderer) {
         WIDTH = window.innerWidth;
         HEIGHT = window.innerHeight;
@@ -158,17 +136,10 @@ var helpers = {
         } else if (data.toggleFog) {
             shared.scene.fog.far = shared.scene.fog.far == shared.option.distanceFog ? 9999999 : shared.option.distanceFog;
         } else if (data.takePicture) {
+            //the picture goes straight to whoever asked (the phone, or this page's own photo roll); nothing is uploaded
             var img = shared.renderer.domElement.toDataURL("image/png");
-            var filename = helpers.uploadDataUrl(img);
-
-            filename.onreadystatechange = function() {
-                if (filename.readyState == 4) {
-                    if(conn)
-                        conn.send({img: filename.responseText});
-                }
-            };
-
-
+            if(conn)
+                conn.send({img: img});
         }
 
     },
@@ -182,8 +153,7 @@ var helpers = {
             var id = "id"+currentId;
             currentId++;
             $photorollUl.insertAdjacentHTML('afterbegin', '<li class="animated bounceInUp" ><div id="'+id+'"></div><img src="'+data.img+'"/></li>');
-            var shareOption = shareSettings(data);
-            var share = new Share('#'+id, shareOption);
+            addShareButtons(document.getElementById(id), data.img);
 
             var $newImg = $photorollUl.children[0];
 

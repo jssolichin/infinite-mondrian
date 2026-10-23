@@ -31,10 +31,14 @@ THREE.js is used to generate blocks and bars at random. A camera is placed withi
  Blurring is done using effect composer with vertical and horizontal blur based on this [StackOverflow](http://stackoverflow.com/questions/15354117/three-js-blur-the-frame-buffer) quesetion.
 
 ## Running your own
+This is a static site: there is no app server, and nothing needs installing (the front-end libraries are committed, since several of the original Bower URLs no longer exist).
 1. Download the files: `$ git clone https://github.com/jssolichin/infinite-mondrian`
-2. Install dependencies: `$ npm install; bower install`.
-4. Edit [public/js/config.js](public/js/config.js) and change host and port as necessary. Default should work fine on local machine.
-4. Run the app: `$ node app.js`.
+2. Serve the folder with any static file server, e.g. `$ python3 -m http.server 8080`, or host it on GitHub Pages, Cloudflare Pages, DigitalOcean App Platform, etc.
+3. The phone controller pairs through [PeerJS](https://peerjs.com)'s free public signalling server. To use your own PeerServer, set `peer` in [public/js/config.js](public/js/config.js).
+
+Pictures taken in the app go straight to the controlling phone (or the desktop's photo roll) over WebRTC and are never uploaded. Save or share them from there.
+
+The original Node version (Express + PeerServer + server-side picture storage) is on the [`archive-2026`](https://github.com/jssolichin/infinite-mondrian/tree/archive-2026) branch.
 
 ## Special Thanks
 Originally done for [Jennifer Steinkamp](http://www.jsteinkamp.com/), with [John Brumley](http://johnbrumley.info/) as T.A, at [UCLA DMA](http://dma.ucla.edu/).

@@ -8,7 +8,7 @@ var controllerId = Please.make_color().toString().substring(1);
 
 //set link variables
 var url = window.location; // return segment1/segment2/segment3/segment4
-var controllerUrl = url.origin+'/'+controllerId;
+var controllerUrl = new URL('controller.html#'+controllerId, url.href).href;
 document.getElementById('controller-url').innerHTML = '<a href="'+controllerUrl+'">'+controllerUrl+'</a>';
 
 var shared = {
@@ -19,7 +19,7 @@ var shared = {
     option: {
         cardboard: false,
         peer: {
-            name: 'host-'+controllerId
+            name: config.idPrefix+'host-'+controllerId
         },
         camera: {
             viewAngle: 45,
@@ -148,7 +148,7 @@ var init = function () {
     }, false);
 
     //add peer listener
-    var peer = new Peer(shared.option.peer.name, {host: config.server.host, port: config.server.port, path: '/peerjs'});
+    var peer = new Peer(shared.option.peer.name, config.peer);
     peer.on('connection', peerHandler);
 
     //add mouse listener
@@ -167,7 +167,7 @@ var init = function () {
         if(shared.option.instructionVisible){
             var toggle = false;
             if(shared.option.cardboard == false && !helpers.isTouchCapable()){
-                var cardboardUrl = url.origin+'/cardboard';
+                var cardboardUrl = new URL('?cardboard', url.href).href;
                 if(confirm('You should be doing this on a mobile device (go to: '+cardboardUrl+'). Press Ok to proceed anyway'))
                     toggle = true;
                 else
@@ -233,7 +233,7 @@ var init = function () {
     $hud.style.display ="block";
     helpers.instructionToggle(true);
 
-    if(url.pathname.indexOf('cardboard') >= 0)
+    if(url.search.indexOf('cardboard') >= 0)
         helpers.cardboardToggler();
 };
 

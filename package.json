@@ -1,15 +1,10 @@
 {
   "name": "infinite-mondrian",
   "version": "0.0.1",
-  "description": "Auto generating 3D Mondrian esque world, exploreable with phone gyroscope",
-  "dependencies": {
-    "express": "~4.10.4",
-    "peer": "~0.2.8"
-  },
-  "main": "app.js",
+  "description": "Auto generating 3D Mondrian esque world, exploreable with phone gyroscope (static: no app server; phone pairing uses PeerJS's public server)",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "python3 -m http.server 8080"
   },
   "repository": {
     "type": "git",
