@@ -5,14 +5,20 @@
  * (Web Share API) where it can share image files.
  */
 var currentId = 0;
+var shareIcon = function ($el, icon, label){
+    $el.className = 'button';
+    $el.title = label;
+    $el.setAttribute('aria-label', label);
+    $el.innerHTML = '<img class="icon" src="assets/img/' + icon + '" alt="">';
+    return $el;
+};
 var addShareButtons = function ($container, dataUrl){
     var filename = 'infinite-mondrian-' + Date.now() + '.png';
     $container.className = 'share-actions';
 
-    var $save = document.createElement('a');
+    var $save = shareIcon(document.createElement('a'), 'ic_file_download_24px.svg', 'Save picture');
     $save.href = dataUrl;
     $save.download = filename;
-    $save.textContent = 'Save';
     $container.appendChild($save);
 
     if (!navigator.canShare)
@@ -23,8 +29,7 @@ var addShareButtons = function ($container, dataUrl){
         if (!navigator.canShare({files: [file]}))
             return;
 
-        var $share = document.createElement('button');
-        $share.textContent = 'Share';
+        var $share = shareIcon(document.createElement('button'), 'ic_share_24px.svg', 'Share picture');
         $share.addEventListener('click', function () {
             navigator.share({
                 files: [file],

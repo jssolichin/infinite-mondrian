@@ -29,9 +29,11 @@ canvas {cursor: pointer;}
 #photo-roll > ul li {margin-bottom: 30px;}
 #photo-roll img {border: 10px solid #fff; width: 100%; box-shadow: 0px 5px 10px rgba(0,0,0,.3)}
 #photo-roll > ul li {position: relative;}
-#photo-roll .share-actions {position: absolute; top: 14px; left: 14px; display: flex; gap: 4px;}
-#photo-roll .share-actions a, #photo-roll .share-actions button {background: #fff; color: #000; border: 0; padding: 2px 6px; font: inherit; font-size: .8em; text-decoration: none; cursor: pointer;}
-#photo-roll .share-actions a:hover, #photo-roll .share-actions button:hover {background: #4CAF50; color: #fff;}
+/* small white corner icons on the thumbnails, like the original 2015 share widget */
+#photo-roll .share-actions {top: 14px; bottom: auto; left: 14px; right: auto; gap: 2px;}
+#photo-roll .share-actions .button {background: #fff; border-radius: 0; padding: 2px;}
+#photo-roll .share-actions .button:hover, #photo-roll .share-actions .button:active {background: #4CAF50;}
+#photo-roll .share-actions .icon {width: 18px; height: 18px;}
 
 
 @media only screen and (max-device-width: 800px){

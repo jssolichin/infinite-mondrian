@@ -19,7 +19,10 @@ body {background: #263238; margin: 0px; padding: 0px;}
 .icon { width: 24px; height: 24px; }
 .off {opacity: .5;}
 
-#enable-motion {position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 100; background: #4CAF50; color: #fff; border: 0; border-radius: 30px; padding: 20px 30px; font: inherit; font-size: 1.2em; box-shadow: 0 10px 30px rgba(0,0,0,.4);}
+/* same pill as the controls above: yellow, black icon, red when pressed */
+#enable-motion {position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 100; display: flex; align-items: center; gap: 8px; background: #FFEB3B; color: #000; border: 0; border-radius: 30px; padding: 10px 20px 10px 10px; font-family: serif; font-size: 1.2em; font-variant: small-caps; cursor: pointer;}
+#enable-motion:hover {background: #F44336;}
+#enable-motion:active {background: #B71C1C;}
 #enable-motion[hidden] {display: none;}
 
 #photo-roll {margin: 130px 0 0 0; }
@@ -28,5 +31,8 @@ body {background: #263238; margin: 0px; padding: 0px;}
 #photo-roll img {border: 20px solid #fff; width: 80%;}
 
 #photo-roll .share-actions {position: absolute; bottom: 40px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px;}
-#photo-roll .share-actions a, #photo-roll .share-actions button {background: #fff; color: #000; border: 0; padding: 10px 18px; font: inherit; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.3);}
+#photo-roll .share-actions .button {display: block; background: #FFEB3B; border: 0; border-radius: 30px; padding: 10px; line-height: 0; cursor: pointer;}
+#photo-roll .share-actions .button:hover {background: #F44336;}
+#photo-roll .share-actions .button:active {background: #B71C1C;}
+#photo-roll .share-actions .icon {display: block; width: 24px; height: 24px; border: 0; box-shadow: none;} /* not a photo: undo the #photo-roll img frame */
 
