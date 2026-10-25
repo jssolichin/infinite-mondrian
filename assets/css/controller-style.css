@@ -19,8 +19,12 @@ body {background: #263238; margin: 0px; padding: 0px;}
 .icon { width: 24px; height: 24px; }
 .off {opacity: .5;}
 
-/* plain white text on the background; the whole background (below the controls) is the tap target */
-#enable-motion {position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 98; display: flex; align-items: center; justify-content: center; width: 100%; background: none; border: 0; padding: 0; color: #fff; font-family: serif; font-size: 1.5em; cursor: pointer; -webkit-tap-highlight-color: transparent;}
+/* white text on the background, laid out like the desktop instructions: title, rule, italic small-caps hint.
+   The whole background (below the controls) is the tap target. */
+#enable-motion {position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 98; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; background: none; border: 0; padding: 0; color: #fff; font-family: serif; font-size: 16px; cursor: pointer; -webkit-tap-highlight-color: transparent;}
+#enable-motion .title {display: block; width: 300px; max-width: 80%; font-size: 2em; font-weight: bold; text-transform: uppercase; line-height: 1.15;}
+#enable-motion .rule {display: block; width: 300px; max-width: 80%; border-top: 1px solid #fff; margin: 15px 0 10px;}
+#enable-motion .hint {display: block; font-style: italic; font-variant: small-caps; font-size: 1.1em;}
 #enable-motion[hidden] {display: none;}
 
 #photo-roll {margin: 130px 0 0 0; }
