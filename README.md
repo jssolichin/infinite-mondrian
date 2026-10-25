@@ -15,8 +15,8 @@ The present page talks more of the technical aspect of Infinite Mondrian. For th
 
 ## Usage
 * On a desktop: use mouse to navigate the world, and keyboard keys to manipulate the camera (letters on the button below instructions).
-* On a mobile device: use the phone's gyroscope to navigate the world.
-* On a desktop + mobile: Open the app on a desktop, and access the url under *Use a Remote Controller* on a mobile device (use another tab to test if unavailable). The mobile device will remotely control the app on desktop; its gyroscope will navigate the world, the buttons on the mobile device will manipulate the camera. Requires Android (maybe one day other platform will support WebRTC). The mobile device acts as an avatar for a "real camera" into the world.
+* On a mobile device: tap the screen, then use the phone's gyroscope to navigate the world. On iPhone, allow Motion & Orientation access when asked (needs HTTPS).
+* On a desktop + mobile: Open the app on a desktop, and access the url under *Use a Remote Controller* on a mobile device (use another tab to test if unavailable). The mobile device will remotely control the app on desktop; its gyroscope will navigate the world, the buttons on the mobile device will manipulate the camera. Works on Android and iPhone (iOS 11+); on iPhone, tap *Tap to steer with your phone* and allow motion access. The mobile device acts as an avatar for a "real camera" into the world.
 * On a Google Cardboard: On a mobile device, access the app and click the enable button. Make sure the device is in landscape mode.
 
 ## How it works

@@ -181,8 +181,8 @@ var init = function () {
     });
 
     if(helpers.isTouchCapable()){
-        //add touch listener
-        $container.addEventListener('touchstart', helpers.enableDeviceControl);
+        //add touch listener (touchend, not touchstart: iOS only grants motion access from a completed tap)
+        $container.addEventListener('touchend', helpers.enableDeviceControl);
     } else {
         //add pointer listener (and lock them on click)
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;

@@ -17,6 +17,34 @@ var peer = new Peer(name, config.peer);
 var conn;
 var currentId = 0;
 
+//iOS 13+ only sends deviceorientation events after the user allows it, from a tap.
+//Other browsers may have the same API but deliver events anyway, so the "tap to steer"
+//button only appears if no real readings have arrived shortly after load.
+//The listener further down can be attached first; events simply start flowing once allowed.
+var $enableMotion = document.getElementById('enable-motion');
+var motionSeen = false;
+window.addEventListener('deviceorientation', function (event) {
+    if (event.alpha !== null || event.beta !== null) {
+        motionSeen = true;
+        $enableMotion.hidden = true;
+    }
+});
+if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    setTimeout(function () {
+        if (!motionSeen)
+            $enableMotion.hidden = false;
+    }, 1000);
+    $enableMotion.addEventListener('click', function () {
+        DeviceOrientationEvent.requestPermission().then(function (state) {
+            $enableMotion.hidden = true;
+            if (state !== 'granted' && !motionSeen)
+                alert('Motion access was not allowed, so tilting the phone will not move the view. Reload the page to be asked again.');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+}
+
 peer.on('error', function (err) {
     console.log(err);
     if (err.type === 'peer-unavailable')

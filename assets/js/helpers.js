@@ -21,7 +21,9 @@ var helpers = {
     },
     requestFullscreen: function (el){
         if (el.requestFullscreen) {
-            el.requestFullscreen();
+            var entering = el.requestFullscreen();
+            if (entering && entering.catch)
+                entering.catch(function () {}); //refused outside a real tap; nothing to do
         } else if (el.webkitRequestFullscreen) {
             el.webkitRequestFullscreen();
         } else if (el.mozRequestFullScreen) {
@@ -31,8 +33,11 @@ var helpers = {
         }
 
         //good fullscreen on cardboard requires landscape if possible
-        if(shared.option.cardboard == true && screen.orientation !== undefined )
-            screen.orientation.lock('landscape-primary');
+        if(shared.option.cardboard == true && screen.orientation !== undefined && screen.orientation.lock){
+            var locking = screen.orientation.lock('landscape-primary');
+            if(locking && locking.catch)
+                locking.catch(function () {}); //iOS and non-fullscreen pages refuse; not an error
+        }
     },
     cancelFullscreen: function (){
         if (document.exitFullscreen) {
@@ -238,7 +243,30 @@ var helpers = {
 
         helpers.rotateLandscapeHint();
     },
+    requestMotionPermission: function (done){
+        //iOS 13+ only sends deviceorientation events after the page asks, from inside a tap.
+        //Other browsers may have the same API but deliver events anyway (and answer "denied"
+        //outside a tap), so judge by whether real readings arrive rather than by the answer.
+        if (helpers.motionSeen || !(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'))
+            return done(true);
+
+        var finish = function (state) {
+            setTimeout(function () {
+                if (state !== 'granted' && !helpers.motionSeen)
+                    alert('Motion access was not allowed, so tilting the phone will not move the view. Reload the page to be asked again.');
+                done(helpers.motionSeen);
+            }, 1000);
+        };
+        DeviceOrientationEvent.requestPermission().then(finish, function () { finish('error'); });
+    },
     enableDeviceControl: function (){
+        //ask during this tap, but don't wait for the answer: fullscreen below must also run inside the tap,
+        //and orientation events simply start arriving once allowed
+        if (!helpers.motionPermissionAsked) {
+            helpers.motionPermissionAsked = true;
+            helpers.requestMotionPermission(function () {});
+        }
+
         var $container = document.getElementById('container');
 
         if(shared.gyro.status()){
@@ -256,3 +284,8 @@ var helpers = {
 
     }
 };
+//note when real motion readings arrive (desktops fire one event with null values)
+window.addEventListener('deviceorientation', function (event) {
+    if (event.alpha !== null || event.beta !== null)
+        helpers.motionSeen = true;
+});
