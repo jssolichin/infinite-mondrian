@@ -2,5 +2,5 @@
 projectFilesBackup/*
 node_modules/*
 bower_components/*
-public/img/shots/*
+assets/img/shots/*
 unused.js

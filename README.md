@@ -34,7 +34,7 @@ THREE.js is used to generate blocks and bars at random. A camera is placed withi
 This is a static site: there is no app server, and nothing needs installing (the front-end libraries are committed, since several of the original Bower URLs no longer exist).
 1. Download the files: `$ git clone https://github.com/jssolichin/infinite-mondrian`
 2. Serve the folder with any static file server, e.g. `$ python3 -m http.server 8080`, or host it on GitHub Pages, Cloudflare Pages, DigitalOcean App Platform, etc.
-3. The phone controller pairs through [PeerJS](https://peerjs.com)'s free public signalling server. To use your own PeerServer, set `peer` in [public/js/config.js](public/js/config.js).
+3. The phone controller pairs through [PeerJS](https://peerjs.com)'s free public signalling server. To use your own PeerServer, set `peer` in [assets/js/config.js](assets/js/config.js).
 
 Pictures taken in the app go straight to the controlling phone (or the desktop's photo roll) over WebRTC and are never uploaded. Save or share them from there.
 
